@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
-import edu.unlv.cs.rebelhotel.util.ServiceTest;
+//import edu.unlv.cs.rebelhotel.util.ServiceTest;
 import static org.easymock.EasyMock.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)

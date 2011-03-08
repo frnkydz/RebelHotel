@@ -26,8 +26,7 @@ Student query related:
 	- Student query validator updated accordingly
 	- A term validator was added in the process of updating the student query validator
 	- Currently there is no link going to the student query, go to RebelHotel/students?query to test it
-	
-	
+
 --
 Base user login is root/test
 No locations/methods are secured yet
