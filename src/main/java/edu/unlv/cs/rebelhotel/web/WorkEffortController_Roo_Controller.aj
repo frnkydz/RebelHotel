@@ -3,6 +3,7 @@
 
 package edu.unlv.cs.rebelhotel.web;
 
+import edu.unlv.cs.rebelhotel.domain.Employer;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
@@ -78,6 +79,11 @@ privileged aspect WorkEffortController_Roo_Controller {
     public String WorkEffortController.findWorkEffortsByStudentEquals(@RequestParam("student") Student student, Model model) {
         model.addAttribute("workefforts", WorkEffort.findWorkEffortsByStudentEquals(student).getResultList());
         return "workefforts/list";
+    }
+    
+    @ModelAttribute("employers")
+    public Collection<Employer> WorkEffortController.populateEmployers() {
+        return Employer.findAllEmployers();
     }
     
     @ModelAttribute("students")

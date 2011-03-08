@@ -37,9 +37,6 @@ public class WorkEffort {
     @Embedded
     private Supervisor supervisor;
 
-    @Embedded
-    private Employer employer;
-
     @Enumerated
     private VerificationType verificationType;
 
@@ -57,10 +54,13 @@ public class WorkEffort {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<WorkRequirement> workRequirements = new HashSet<WorkRequirement>();
-    
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Employer> employer = new HashSet<Employer>();
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getWorkPosition()+" at "+getEmployer().getName()+" "+getDuration());
+        sb.append(getWorkPosition() + " at " + getEmployer().toString() + " " + getDuration());
         return sb.toString();
     }
 }

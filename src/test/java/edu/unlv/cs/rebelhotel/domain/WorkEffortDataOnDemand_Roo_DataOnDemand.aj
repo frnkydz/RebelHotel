@@ -27,7 +27,6 @@ privileged aspect WorkEffortDataOnDemand_Roo_DataOnDemand {
         obj.setWorkPosition("workPosition_" + index);
         obj.setComment("comment_" + index);
         obj.setSupervisor(null);
-        obj.setEmployer(null);
         obj.setVerificationType(null);
         obj.setValidation(null);
         obj.setVerification(null);

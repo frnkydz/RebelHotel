@@ -13,7 +13,7 @@
 					<field:input field="userId" id="c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_userId" />
     			</td>
     			<td>
-    				<field:checkbox field="useCatalogTerm" id="c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_useCatalogTerm" />
+    				<field:checkbox field="useCatalogTerm" id="c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_catalogTerm" />
     				<field:input field="catalogTerm.termYear" id="c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_catalogTerm_termYear" validationMessageCode="field_invalid_integer" />
         			<field:select field="catalogTerm.semester" id="c_edu_unlv_cs_rebelhotel_form_FormStudentQuery_catalogTerm_semester" items="${query_semesters}" path="semesters" />
     			</td>
