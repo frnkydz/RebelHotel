@@ -3,7 +3,6 @@
 
 package edu.unlv.cs.rebelhotel.web;
 
-import edu.unlv.cs.rebelhotel.domain.Employer;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
@@ -69,7 +68,6 @@ privileged aspect WorkEffortController_Roo_Controller {
         return "redirect:/workefforts?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
     }
     
-<<<<<<< HEAD
     @RequestMapping(params = { "find=ByStudentEquals", "form" }, method = RequestMethod.GET)
     public String WorkEffortController.findWorkEffortsByStudentEqualsForm(Model model) {
         model.addAttribute("students", Student.findAllStudents());
@@ -82,13 +80,6 @@ privileged aspect WorkEffortController_Roo_Controller {
         return "workefforts/list";
     }
     
-    @ModelAttribute("employers")
-    public Collection<Employer> WorkEffortController.populateEmployers() {
-        return Employer.findAllEmployers();
-    }
-    
-=======
->>>>>>> branch 'refs/heads/master' of https://github.com/frnkydz/RebelHotel.git
     @ModelAttribute("students")
     public Collection<Student> WorkEffortController.populateStudents() {
         return Student.findAllStudents();
