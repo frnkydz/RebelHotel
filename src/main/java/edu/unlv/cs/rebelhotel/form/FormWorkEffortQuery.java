@@ -17,11 +17,11 @@ public class FormWorkEffortQuery {
 	private String userId;
 	private boolean userIdSelected;
 	
-    private String companyName;
-    private boolean companyNameSelected;
+    private String employerName;
+    private boolean employerNameSelected;
     
-    private String companyLocation;
-    private boolean companyLocationSelected;
+    private String employerLocation;
+    private boolean employerLocationSelected;
 
     @Enumerated
     private Validation validation;

@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
+import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
+import edu.unlv.cs.rebelhotel.domain.WorkEffortDataOnDemand;
 //import edu.unlv.cs.rebelhotel.util.ServiceTest;
 import static org.easymock.EasyMock.*;
 
@@ -26,6 +28,7 @@ public class WorkEffortQueryServiceTest {
 	
 	WorkEffortQueryService instance;
 	private FormWorkEffortQuery formworkeffortquery;
+	WorkEffortDataOnDemand wedod;
 	@Before
 	public void setUp() throws Exception {
 		instance = new WorkEffortQueryService();
@@ -34,30 +37,25 @@ public class WorkEffortQueryServiceTest {
 	
 	
 	@Test
-	public void testQueryStudentsWithNonExistentUserId() {
+	public void testQueryStudentsWithExistentUserId() {
 		
-		expect(formStudentQuery.getUseUserId()).andReturn(true);
-		expect(formStudentQuery.getUserId()).andReturn(nonExistentUserId );
+		expect(formworkeffortquery.isUserIdSelected()).andReturn(false);
+		expect(formworkeffortquery.isCompanyLocationSelected()).andReturn(false);
+		expect(formworkeffortquery.isCompanyNameSelected()).andReturn(true);
+		expect(formworkeffortquery.isValidationSelected()).andReturn(false);
+		expect(formworkeffortquery.getCompanyName()).andReturn("New Orleans");
+
+
 		
-		replay(formStudentQuery);
-		
-		List<Student> actual = instance.queryStudents(formStudentQuery);
-		int expectedSize = 0;
-		assertEquals("This should be an empty list", expectedSize,actual.size());
+		replay(formworkeffortquery);
+		List<WorkEffort> actual = instance.queryWorkEfforts(formworkeffortquery);
+		int expectedSize = 1;
+		assertEquals("This should have one value", expectedSize,actual.size());
 	}
 	
-	private FormWorkEffortQuery createValidForm(String employerName, String employerLocation, String userId){
-		UserAccount account = new UserAccount();
-		account.setUserId(userId);
-		account.setPassword("Never use a password like this");
-		account.persist();
-		Student student = new Student();
-		student.setUserAccount(account);
-		student.setEmail("email");
-		student.setFirstName("firstName");
-		student.setUserId(userId );
-		student.persist();
-		student.flush();
+	private void createValidForm(String employerName, String employerLocation, String userId){
+		
+		
 		
 
 		

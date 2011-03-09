@@ -14,12 +14,12 @@
         	<td><field:checkbox field="userIdSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useUserId" /></td>
         </tr>
        	<tr>
-       		<td><field:input field="companyName" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_companyName" z=""/></td>
-   			<td><field:checkbox field="companyNameSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useCompanyName" /></td>
+       		<td><field:input field="employerName" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_employerName" z=""/></td>
+   			<td><field:checkbox field="employerNameSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useEmployerName" /></td>
       	</tr>
       	<tr>
-      	 	<td><field:input field="companyLocation" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_companyLocation" z=""/></td>
-       		<td><field:checkbox field="companyLocationSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useCompanyLocation" /></td>
+      	 	<td><field:input field="employerLocation" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_employerLocation" z=""/></td>
+       		<td><field:checkbox field="employerLocationSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useemployerLocation" /></td>
         </tr>
        <tr>
        		<td> <field:select field="validation" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_validation" items="${validations}" path="validations" z=""/></td>

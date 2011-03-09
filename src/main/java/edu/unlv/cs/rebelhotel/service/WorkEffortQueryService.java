@@ -17,94 +17,80 @@ import edu.unlv.cs.rebelhotel.domain.Employer;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
+
 @Service
 public class WorkEffortQueryService {
-	
-	public List<WorkEffort> queryWorkEfforts(FormWorkEffortQuery fweq){
+
+	public List<WorkEffort> queryWorkEfforts(FormWorkEffortQuery fweq) {
 		DetachedCriteria search = DetachedCriteria.forClass(WorkEffort.class);
-		
-		if(fweq.isUserIdSelected()){
-			search.createCriteria("student")
-			.add(Restrictions.eq("userId",fweq.getUserId()));
+
+		if (fweq.isUserIdSelected()) {
+			search.createCriteria("student").add(
+					Restrictions.eq("userId", fweq.getUserId()));
 		}
-		if(fweq.isCompanyNameSelected()){
-			search.add(Restrictions.eq("company.name", fweq.getCompanyName()));
+		if (fweq.isEmployerNameSelected()) {
+			search.add(Restrictions.eq("employer.name", fweq.getEmployerName()));
 		}
-		if(fweq.isCompanyLocationSelected()){
-			search.add(Restrictions.eq("company.location", fweq.getCompanyLocation()));
+		if (fweq.isEmployerLocationSelected()) {
+			search.add(Restrictions.eq("employer.location",
+					fweq.getEmployerLocation()));
 		}
-		
-		if(fweq.isValidationSelected()){
-			search.createCriteria("validation")
-			.add(Example.create(fweq.getValidation()));
+
+		if (fweq.isValidationSelected()) {
+			search.createCriteria("validation").add(
+					Example.create(fweq.getValidation()));
 		}
-		
-		
-	
-	
-	
-	List workefforts;
-	
-	DetachedCriteria rootQuery = DetachedCriteria.forClass(WorkEffort.class);
-	search.setProjection(Projections.distinct(Projections.projectionList().add(Projections.alias(Projections.property("id"), "id"))));
-	rootQuery.add(Subqueries.propertyIn("id", search));
-	Session session = (Session) Student.entityManager().unwrap(Session.class);
-	session.beginTransaction();
-	workefforts = rootQuery.getExecutableCriteria(session).list();
-	session.close();
-	
-	return workefforts;
-	
-	
+
+		List workefforts;
+
+		DetachedCriteria rootQuery = DetachedCriteria
+				.forClass(WorkEffort.class);
+		search.setProjection(Projections.distinct(Projections.projectionList()
+				.add(Projections.alias(Projections.property("id"), "id"))));
+		rootQuery.add(Subqueries.propertyIn("id", search));
+		Session session = (Session) Student.entityManager().unwrap(
+				Session.class);
+		session.beginTransaction();
+		workefforts = rootQuery.getExecutableCriteria(session).list();
+		session.close();
+
+		return workefforts;
+
 	}
-	
+
 	public String buildPropertiesString() {
 		String properties = "id";
-		
-			properties += ",userId";
-			properties += ",Name";
-			properties += ",Company Name";
-			properties += ",Validation";
-			
 
-		/*if (properties.length() > 0) {
-			properties = properties.substring(1);
-		}*/
+		properties += ",student";
+
+		/*
+		 * if (properties.length() > 0) { properties = properties.substring(1);
+		 * }
+		 */
 		return properties;
 	}
-	
+
 	public String buildLabelsString() {
-		// hackish method of getting locale messages ... but this service apparently is not in scope of the locale definitions necessary here
-		MessageSource messageSource = SpringApplicationContext.getApplicationContext();
-		
-		
-		String properties = messageSource.getMessage("label_edu_unlv_cs_rebelhotel_domain_student_id", null, LocaleContextHolder.getLocale());
-	
-			properties += "," + messageSource.getMessage("label_edu_unlv_cs_rebelhotel_domain_student_userid", null, LocaleContextHolder.getLocale());
-			properties += "," + messageSource.getMessage("label_edu_unlv_cs_rebelhotel_domain_student_name", null, LocaleContextHolder.getLocale());
-			// name is a "field" generated on the spot in the .jspx file
-			properties += "," + messageSource.getMessage("label_edu_unlv_cs_rebelhotel_domain_workeffort_employer_name", null, LocaleContextHolder.getLocale());
-			properties += "," + messageSource.getMessage("label_edu_unlv_cs_rebelhotel_form_formworkeffort_validation", null, LocaleContextHolder.getLocale());
-		
-		
+		// hackish method of getting locale messages ... but this service
+		// apparently is not in scope of the locale definitions necessary here
+		MessageSource messageSource = SpringApplicationContext
+				.getApplicationContext();
+
+		String properties = messageSource.getMessage(
+				"label_edu_unlv_cs_rebelhotel_domain_student_id", null,
+				LocaleContextHolder.getLocale());
+
 		return properties;
 	}
-	
+
 	public String buildMaxLengthsString() {
-		// these will determine how many characters the table.jspx will display per data column; table.jspx defaults to 10, so this does too
+		// these will determine how many characters the table.jspx will display
+		// per data column; table.jspx defaults to 10, so this does too
 		String properties = "10";
-		
-			properties += ",20";
-		
-			properties += ",20";
 
-			properties += ",20";
+		properties += ",20";
 
-			properties += "20";
-
-		
 		return properties;
 	}
 
-	
 }

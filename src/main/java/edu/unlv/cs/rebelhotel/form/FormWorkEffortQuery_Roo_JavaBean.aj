@@ -25,36 +25,36 @@ privileged aspect FormWorkEffortQuery_Roo_JavaBean {
         this.userIdSelected = userIdSelected;
     }
     
-    public String FormWorkEffortQuery.getCompanyName() {
-        return this.companyName;
+    public String FormWorkEffortQuery.getEmployerName() {
+        return this.employerName;
     }
     
-    public void FormWorkEffortQuery.setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void FormWorkEffortQuery.setEmployerName(String employerName) {
+        this.employerName = employerName;
     }
     
-    public boolean FormWorkEffortQuery.isCompanyNameSelected() {
-        return this.companyNameSelected;
+    public boolean FormWorkEffortQuery.isEmployerNameSelected() {
+        return this.employerNameSelected;
     }
     
-    public void FormWorkEffortQuery.setCompanyNameSelected(boolean companyNameSelected) {
-        this.companyNameSelected = companyNameSelected;
+    public void FormWorkEffortQuery.setEmployerNameSelected(boolean employerNameSelected) {
+        this.employerNameSelected = employerNameSelected;
     }
     
-    public String FormWorkEffortQuery.getCompanyLocation() {
-        return this.companyLocation;
+    public String FormWorkEffortQuery.getEmployerLocation() {
+        return this.employerLocation;
     }
     
-    public void FormWorkEffortQuery.setCompanyLocation(String companyLocation) {
-        this.companyLocation = companyLocation;
+    public void FormWorkEffortQuery.setEmployerLocation(String employerLocation) {
+        this.employerLocation = employerLocation;
     }
     
-    public boolean FormWorkEffortQuery.isCompanyLocationSelected() {
-        return this.companyLocationSelected;
+    public boolean FormWorkEffortQuery.isEmployerLocationSelected() {
+        return this.employerLocationSelected;
     }
     
-    public void FormWorkEffortQuery.setCompanyLocationSelected(boolean companyLocationSelected) {
-        this.companyLocationSelected = companyLocationSelected;
+    public void FormWorkEffortQuery.setEmployerLocationSelected(boolean employerLocationSelected) {
+        this.employerLocationSelected = employerLocationSelected;
     }
     
     public Validation FormWorkEffortQuery.getValidation() {

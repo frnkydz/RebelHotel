@@ -23,7 +23,8 @@ import static org.easymock.EasyMock.*;
 public class StudentQueryServiceTest {
 
 	StudentQueryService instance;
-	private FormStudentQuery formStudentQuery;
+	private FormStudentQuery 
+;
 
 	@Before
 	public void setUp() throws Exception {
