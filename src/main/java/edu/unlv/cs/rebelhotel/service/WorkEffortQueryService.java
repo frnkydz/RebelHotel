@@ -62,7 +62,7 @@ public class WorkEffortQueryService {
 		String properties = "id";
 
 		properties += ",student";
-
+		properties +=",employer";
 		/*
 		 * if (properties.length() > 0) { properties = properties.substring(1);
 		 * }
@@ -79,7 +79,15 @@ public class WorkEffortQueryService {
 		String properties = messageSource.getMessage(
 				"label_edu_unlv_cs_rebelhotel_domain_student_id", null,
 				LocaleContextHolder.getLocale());
-
+		
+		properties += ","+ messageSource.getMessage(
+				"label_edu_unlv_cs_rebelhotel_domain_student", null,
+				LocaleContextHolder.getLocale());
+		
+		
+		 properties += ","+ messageSource.getMessage(
+				"label_edu_unlv_cs_rebelhotel_domain_workeffort_employer", null,
+				LocaleContextHolder.getLocale());
 		return properties;
 	}
 
@@ -88,7 +96,9 @@ public class WorkEffortQueryService {
 		// per data column; table.jspx defaults to 10, so this does too
 		String properties = "10";
 
-		properties += ",20";
+		properties += ",30";
+		
+		properties +=",50";
 
 		return properties;
 	}
