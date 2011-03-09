@@ -4,7 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     
     
- <form:create id="fc_edu_unlv_cs_rebelhotel_form_FormWorkEffort" modelAttribute="formworkeffortquery" path="/formworkeffortquery" render="${empty dependencies}" z="Uf7OgrlFmtWkcuJmcJOSqG30iWM=">
+ <form:create id="fc_edu_unlv_cs_rebelhotel_form_FormWorkEffort" modelAttribute="formworkeffortquery" path="/workeffortquery?query" render="${empty dependencies}" z="Uf7OgrlFmtWkcuJmcJOSqG30iWM=">
     	
     	
     	

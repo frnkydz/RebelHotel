@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
 import edu.unlv.cs.rebelhotel.service.WorkEffortQueryService;
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -79,8 +81,30 @@ public class WorkEffortQueryController {
     public void get(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
     }
 
-    public void post(@PathVariable Long id, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
-    }
+	@RequestMapping(params = "query", method = RequestMethod.POST)
+	public String queryList(@Valid FormWorkEffortQuery form, BindingResult result, Model model, HttpServletRequest request) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("formStudentQuery", form);
+			addDateTimeFormatPatterns(model);
+			return "workeffortquery/findWorkEfforts";
+		}
+		
+		List<WorkEffort> workefforts = workeffortqueryservice.queryWorkEfforts(form);
+		String properties = workeffortqueryservice.buildPropertiesString();
+		String labels = workeffortqueryservice.buildLabelsString();
+		String maxLengths = workeffortqueryservice.buildMaxLengthsString();
+		
+
+		model.addAttribute("workefforts", workefforts);
+		model.addAttribute("tempColumnProperties", properties);
+		model.addAttribute("tempColumnLabels", labels);
+		model.addAttribute("tempColumnMaxLengths", maxLengths);
+		return "workeffortquery/queryList";
+	}
+	
+	
+	
 
     @RequestMapping(params = {"query","form"}, method = RequestMethod.GET)
 	public String query(Model model) {
@@ -90,24 +114,17 @@ public class WorkEffortQueryController {
 		return "workeffortquery/findWorkEfforts";
 	}
     
-	@RequestMapping(params = "query", method = RequestMethod.POST)
-	public String queryList(@Valid FormWorkEffortQuery fweq, BindingResult result, Model model, HttpServletRequest request) {
-		
-		
-		if (result.hasErrors()) {
-			model.addAttribute("formworkeffortquery", fweq);
-			addDateTimeFormatPatterns(model);
-			return "workeffortquery/findWorkEfforts";
-		}
-		
-		List<WorkEffort> workefforts = workeffortqueryservice.queryWorkEfforts(fweq);
+    
+    
+    @RequestMapping(method = RequestMethod.POST)
+    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @Valid FormWorkEffortQuery fweq, BindingResult result, Model model) {
+       
+            model.addAttribute("workefforts", workeffortqueryservice.queryWorkEfforts(fweq));
+        
+        return "workefforts/list";
+    }
 	
-		model.addAttribute("workefforts", workefforts);
-		return "workefforts/list";
-		
-		
-	}
-	
+
     
     
     
