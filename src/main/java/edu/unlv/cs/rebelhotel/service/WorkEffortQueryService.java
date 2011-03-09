@@ -25,20 +25,15 @@ public class WorkEffortQueryService {
 			.add(Restrictions.eq("userId",fweq.getUserId()));
 		}
 		if(fweq.isCompanyNameSelected()){
-			search.createCriteria("employer")
-			.add(Restrictions.eq("name", fweq.getCompanyName()));
+			search.add(Restrictions.eq("company.name", fweq.getCompanyName()));
 		}
 		if(fweq.isCompanyLocationSelected()){
-			search.createCriteria("employer")
-			.add(Restrictions.eq("location", fweq.getCompanyName()));
+			search.add(Restrictions.eq("company.location", fweq.getCompanyLocation()));
 		}
 		
-		if(fweq.isCompanyLocationSelected()){
-			search.createCriteria("employer")
-			.add(Restrictions.eq("location", fweq.getCompanyName()));
-		}
 		if(fweq.isValidationSelected()){
-		search.add(Restrictions.eq("validation",fweq.getValidation()));
+			search.createCriteria("validation")
+			.add(Example.create(fweq.getValidation()));
 		}
 		
 		

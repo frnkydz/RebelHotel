@@ -97,11 +97,11 @@ privileged aspect WorkEffort_Roo_JavaBean {
         this.workRequirements = workRequirements;
     }
     
-    public Set<Employer> WorkEffort.getEmployer() {
+    public Employer WorkEffort.getEmployer() {
         return this.employer;
     }
     
-    public void WorkEffort.setEmployer(Set<Employer> employer) {
+    public void WorkEffort.setEmployer(Employer employer) {
         this.employer = employer;
     }
     

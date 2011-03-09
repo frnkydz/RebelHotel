@@ -55,12 +55,14 @@ public class WorkEffort {
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<WorkRequirement> workRequirements = new HashSet<WorkRequirement>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Employer> employer = new HashSet<Employer>();
+    @Embedded 
+    private Employer employer;
 
+     
+    
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(getWorkPosition() + " at " + getEmployer().toString() + " " + getDuration());
+        sb.append(getWorkPosition() + " at " + getEmployer().getName() + " " + getDuration());
         return sb.toString();
     }
 }
