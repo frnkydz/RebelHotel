@@ -37,10 +37,11 @@ public class WorkEffortQueryService {
 		}
 
 		if (fweq.isValidationSelected()) {
-			search.createCriteria("validation").add(
-					Example.create(fweq.getValidation()));
+			search.add(Restrictions.eq("validation",fweq.getValidation()));
 		}
-
+		if (fweq.isDatesSelected()) {
+			search.add(Restrictions.between("duration.endDate",fweq.getStartDate(),fweq.getEndDate()));
+		}
 		List workefforts;
 
 		DetachedCriteria rootQuery = DetachedCriteria
