@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import au.com.bytecode.opencsv.CSVReader;
 
+/*
+
 public class DefaultParser implements Parser {
 	private Hashtable<String,Set<Line>> entries = new Hashtable<String,Set<Line>>();
 	private Set<FileStudent> fileStudents = new HashSet<FileStudent>();
@@ -31,6 +33,7 @@ public class DefaultParser implements Parser {
 	 * 
 	 * @return Set<FileStudent> a set of FileStudents created after parsing a document into Line(s)
 	 */
+/*
 	public Set<FileStudent> parse() throws IOException {
 		CSVReader reader = new CSVReader(new FileReader("students.txt"));
 		String [] nextLine;
@@ -55,3 +58,4 @@ public class DefaultParser implements Parser {
 		return this.fileStudents;
 	}
 }
+*/

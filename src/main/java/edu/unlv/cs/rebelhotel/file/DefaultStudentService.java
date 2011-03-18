@@ -1,5 +1,6 @@
 package edu.unlv.cs.rebelhotel.file;
 
+
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,7 @@ import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.enums.Departments;
 import edu.unlv.cs.rebelhotel.domain.enums.Semester;
-
+/*
 @Service
 public class DefaultStudentService implements StudentService{
 	private FileUpload upload;
@@ -68,6 +69,7 @@ public class DefaultStudentService implements StudentService{
 		}
 		student.setAdmitTerm(fileStudent.getAdmitTerm());
 		student.setGradTerm(fileStudent.getGradTerm());*/
-		student.persist();
+/*		student.persist();
 	}
 }
+*/
