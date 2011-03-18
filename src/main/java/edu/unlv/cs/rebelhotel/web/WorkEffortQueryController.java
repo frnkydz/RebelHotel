@@ -84,8 +84,10 @@ public class WorkEffortQueryController {
 	@RequestMapping(params = "query", method = RequestMethod.POST)
 	public String queryList(@Valid FormWorkEffortQuery form, BindingResult result, Model model, HttpServletRequest request) {
 		
+		
 		if (result.hasErrors()) {
-			model.addAttribute("formStudentQuery", form);
+			model.addAttribute("formworkeffortquery", form);
+			model.addAttribute("error",result.getFieldError().toString());
 			addDateTimeFormatPatterns(model);
 			return "workeffortquery/findWorkEfforts";
 		}
@@ -110,6 +112,7 @@ public class WorkEffortQueryController {
 	public String query(Model model) {
 		FormWorkEffortQuery fweq = new FormWorkEffortQuery();
 		model.addAttribute("formworkeffortquery",fweq);
+		model.addAttribute("error","none");
 		addDateTimeFormatPatterns(model);
 		return "workeffortquery/findWorkEfforts";
 	}
