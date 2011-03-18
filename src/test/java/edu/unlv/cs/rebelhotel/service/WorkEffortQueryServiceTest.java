@@ -40,10 +40,10 @@ public class WorkEffortQueryServiceTest {
 	public void testQueryStudentsWithExistentUserId() {
 		
 		expect(formworkeffortquery.isUserIdSelected()).andReturn(false);
-		expect(formworkeffortquery.isCompanyLocationSelected()).andReturn(false);
-		expect(formworkeffortquery.isCompanyNameSelected()).andReturn(true);
+		expect(formworkeffortquery.isEmployerLocationSelected()).andReturn(false);
+		expect(formworkeffortquery.isEmployerNameSelected()).andReturn(true);
 		expect(formworkeffortquery.isValidationSelected()).andReturn(false);
-		expect(formworkeffortquery.getCompanyName()).andReturn("New Orleans");
+		expect(formworkeffortquery.getEmployerName()).andReturn("New Orleans");
 
 
 		

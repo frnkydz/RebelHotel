@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.converter.Converter;
+
 import java.util.Date;
+
 import edu.unlv.cs.rebelhotel.service.SpringApplicationContext;
 
 import java.text.ParseException;
@@ -122,6 +124,18 @@ public class ApplicationConversionServiceFactoryBean extends
 		};
 	}
 
+	Converter<edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery, String> getFormWorkEffortQueryConverter() {
+        return new Converter<edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery, String>() {
+            public String convert(edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery param) {
+                return param.toString();
+            }
+        };
+	}
+	
+	
+	
+	
+
 	Converter<edu.unlv.cs.rebelhotel.domain.enums.Departments, String> getDepartmentsConverter() {
 		return new Converter<edu.unlv.cs.rebelhotel.domain.enums.Departments, String>() {
 			public String convert(
@@ -219,7 +233,12 @@ public class ApplicationConversionServiceFactoryBean extends
 		registry.addConverter(getWorkEffortDurationConverter());
 		registry.addConverter(getUserAccountConverter());
 		registry.addConverter(getMajorConverter());
+
 		registry.addConverter(getStringConverter());
+
+
+		registry.addConverter(getFormWorkEffortQueryConverter());
+		    
 
 		registry.addConverter(getVerificationTypeConverter());
 		registry.addConverter(getValidationConverter());

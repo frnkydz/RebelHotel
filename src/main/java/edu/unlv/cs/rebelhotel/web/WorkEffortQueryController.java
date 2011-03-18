@@ -1,5 +1,6 @@
 package edu.unlv.cs.rebelhotel.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
-import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
 import edu.unlv.cs.rebelhotel.service.WorkEffortQueryService;
 import java.util.ArrayList;
@@ -41,6 +40,7 @@ import edu.unlv.cs.rebelhotel.validators.WorkEffortValidator;
 
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,47 +56,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
-
-
-
-
-
-
-
 @RequestMapping("/workeffortquery/**")
 @Controller
 public class WorkEffortQueryController {
 
 	@Autowired
 	WorkEffortQueryService workeffortqueryservice;
-	
+
+	//@InitBinder
+	public void initBinder(WebDataBinder binder ) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
+	}
 
 	void setWorkEffortQueryService(WorkEffortQueryService workeffortqueryservice) {
 		this.workeffortqueryservice = workeffortqueryservice;
 	}
-	
-    @RequestMapping(method = RequestMethod.POST, value = "{id}")
-    public void get(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
-    }
 
+	@RequestMapping(method = RequestMethod.POST, value = "{id}")
+	public void get(ModelMap modelMap, HttpServletRequest request,
+			HttpServletResponse response) {
+	}
+
+	
+	
 	@RequestMapping(params = "query", method = RequestMethod.POST)
-	public String queryList(@Valid FormWorkEffortQuery form, BindingResult result, Model model, HttpServletRequest request) {
-		
-		
+
+	public String queryList(@Valid FormWorkEffortQuery form,
+			BindingResult result, Model model, HttpServletRequest request) {
+
 		if (result.hasErrors()) {
 			model.addAttribute("formworkeffortquery", form);
-			model.addAttribute("error",result.getFieldError().toString());
 			addDateTimeFormatPatterns(model);
 			return "workeffortquery/findWorkEfforts";
 		}
-		
-		List<WorkEffort> workefforts = workeffortqueryservice.queryWorkEfforts(form);
+
+		List<WorkEffort> workefforts = workeffortqueryservice
+				.queryWorkEfforts(form);
 		String properties = workeffortqueryservice.buildPropertiesString();
 		String labels = workeffortqueryservice.buildLabelsString();
 		String maxLengths = workeffortqueryservice.buildMaxLengthsString();
-		
 
 		model.addAttribute("workefforts", workefforts);
 		model.addAttribute("tempColumnProperties", properties);
@@ -104,50 +105,44 @@ public class WorkEffortQueryController {
 		model.addAttribute("tempColumnMaxLengths", maxLengths);
 		return "workeffortquery/queryList";
 	}
-	
-	
-	
 
-    @RequestMapping(params = {"query","form"}, method = RequestMethod.GET)
+	@RequestMapping(params = { "query", "form" }, method = RequestMethod.GET)
 	public String query(Model model) {
 		FormWorkEffortQuery fweq = new FormWorkEffortQuery();
+
 		model.addAttribute("formworkeffortquery",fweq);
 		model.addAttribute("error","none");
+
 		addDateTimeFormatPatterns(model);
 		return "workeffortquery/findWorkEfforts";
 	}
-    
-    
-    
-    @RequestMapping(method = RequestMethod.POST)
-    public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size, @Valid FormWorkEffortQuery fweq, BindingResult result, Model model) {
-       
-            model.addAttribute("workefforts", workeffortqueryservice.queryWorkEfforts(fweq));
-        
-        return "workefforts/list";
-    }
-	
 
-    
-    
-    
-    
-    void addDateTimeFormatPatterns(Model model) {
-        model.addAttribute("formWorkEffortQuery_startdate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
-        model.addAttribute("formWorkEffortQuery_enddate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
-    }
-    
-    
-    @ModelAttribute("validations")
-    public Collection<Validation> populateValidations() {
-        return Arrays.asList(Validation.class.getEnumConstants());
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+	@RequestMapping(method = RequestMethod.POST)
+	public String list(
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "size", required = false) Integer size,
+			@Valid FormWorkEffortQuery fweq, BindingResult result, Model model) {
+
+		model.addAttribute("workefforts",
+				workeffortqueryservice.queryWorkEfforts(fweq));
+
+		return "workefforts/list";
+	}
+
+	void addDateTimeFormatPatterns(Model model) {
+		model.addAttribute(
+				"formWorkEffortQuery_startdate_date_format",
+				DateTimeFormat.patternForStyle("S-",
+						LocaleContextHolder.getLocale()));
+		model.addAttribute(
+				"formWorkEffortQuery_enddate_date_format",
+				DateTimeFormat.patternForStyle("S-",
+						LocaleContextHolder.getLocale()));
+	}
+
+	@ModelAttribute("validations")
+	public Collection<Validation> populateValidations() {
+		return Arrays.asList(Validation.class.getEnumConstants());
+	}
+
 }
