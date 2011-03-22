@@ -26,11 +26,11 @@
        		<td><field:checkbox field="validationSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useValidation" /></td>
         </tr>
         <tr>
-        	<td><field:datetime dateTimePattern="${formWorkEffort_startdate_date_format}" field="startDate" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_startDate" z=""/>
-        	<field:datetime dateTimePattern="${formWorkEffort_enddate_date_format}" field="endDate" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_endDate" z=""/></td>
+        	<td><field:datetime dateTimePattern="${formWorkEffortQuery_startdate_date_format}" field="startDate" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_startDate" z=""/>
+        	<field:datetime dateTimePattern="${formWorkEffortQuery_enddate_date_format}" field="endDate" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_endDate" z=""/></td>
         	<td><field:checkbox field="datesSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useDates" /></td>
         </tr>
         </table>
    </form:create>
-    
+ "${error}"
 </div>

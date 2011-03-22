@@ -88,6 +88,7 @@ public class WorkEffortQueryController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("formworkeffortquery", form);
+			model.addAttribute("error",result.getFieldErrors().toString());
 			addDateTimeFormatPatterns(model);
 			return "workeffortquery/findWorkEfforts";
 		}

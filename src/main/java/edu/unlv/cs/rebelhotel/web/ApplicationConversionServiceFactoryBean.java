@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.converter.Converter;
-
+import org.springframework.core.convert.support.*;
 import java.util.Date;
 
 import edu.unlv.cs.rebelhotel.service.SpringApplicationContext;
@@ -42,27 +42,6 @@ public class ApplicationConversionServiceFactoryBean extends
 		};
 	}
 
-	
-	
-	Converter<String, java.util.Date> getStringConverter() {
-		return new Converter<String, java.util.Date>() {
-			
-			public Date convert(String source) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				java.util.Date date = new java.util.Date();
-				try {
-					date = sdf.parse(source);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				// TODO Auto-generated method stub
-				return date;
-			}
-		};
-	}
-	
 	
 	
 

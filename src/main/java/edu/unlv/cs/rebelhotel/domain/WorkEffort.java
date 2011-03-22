@@ -26,43 +26,42 @@ import javax.persistence.CascadeType;
 @RooEntity(finders = { "findWorkEffortsByStudentEquals" })
 public class WorkEffort {
 
-    @NotNull
-    @ManyToOne
-    private Student student;
+	@NotNull
+	@ManyToOne
+	private Student student;
 
-    private String workPosition;
+	private String workPosition;
 
-    private String comment;
+	private String comment;
 
-    @Embedded
-    private Supervisor supervisor;
+	@Embedded
+	private Supervisor supervisor;
 
-    @Enumerated
-    private VerificationType verificationType;
+	@Enumerated
+	private VerificationType verificationType;
 
-    @Enumerated
-    private Validation validation;
+	@Enumerated
+	private Validation validation;
 
-    @Enumerated
-    private Verification verification;
+	@Enumerated
+	private Verification verification;
 
-    @Enumerated
-    private PayStatus payStatus;
+	@Enumerated
+	private PayStatus payStatus;
 
-    @Embedded
-    private WorkEffortDuration duration;
+	@Embedded
+	private WorkEffortDuration duration;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<WorkRequirement> workRequirements = new HashSet<WorkRequirement>();
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<WorkRequirement> workRequirements = new HashSet<WorkRequirement>();
 
-    @Embedded 
-    private Employer employer;
+	@Embedded
+	private Employer employer;
 
-     
-    
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getWorkPosition() + " at " + getEmployer().getName() + " " + getDuration());
-        return sb.toString();
-    }
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getWorkPosition() + " at " + getEmployer().getName() + " "
+				+ getDuration());
+		return sb.toString();
+	}
 }
