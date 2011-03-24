@@ -212,13 +212,7 @@ public class ApplicationConversionServiceFactoryBean extends
 		registry.addConverter(getWorkEffortDurationConverter());
 		registry.addConverter(getUserAccountConverter());
 		registry.addConverter(getMajorConverter());
-
-		registry.addConverter(getStringConverter());
-
-
 		registry.addConverter(getFormWorkEffortQueryConverter());
-		    
-
 		registry.addConverter(getVerificationTypeConverter());
 		registry.addConverter(getValidationConverter());
 		registry.addConverter(getSemesterConverter());

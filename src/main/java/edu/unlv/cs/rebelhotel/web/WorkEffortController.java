@@ -28,8 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
-@RooWebScaffold(path = "workefforts", formBackingObject = WorkEffort.class, exposeFinders = false)
+@RooWebScaffold(path = "workefforts", formBackingObject = WorkEffort.class, exposeFinders=false)
 @RequestMapping("/workefforts")
 @Controller
 public class WorkEffortController {
@@ -46,42 +45,16 @@ public class WorkEffortController {
 		this.workEffortValidator = workEffortValidator;
 	}
 
-	// NOTE : the params string should not be equivalent to any of the fields in
-	// the form
-	// otherwise the validator (?) will assume the params value is set to null
-	// (?) ... very annoying bug
-	
 	public void setWorkEffortForStudentValidator(WorkEffortForStudentValidator workEffortForStudentValidator) {
 		this.workEffortForStudentValidator = workEffortForStudentValidator;
 	}
-	
+
 	// NOTE : the params string should not be equivalent to any of the fields in the form
 	// otherwise the validator (?) will assume the params value is set to null (?) ... very annoying bug
 	@RequestMapping(value = "/{sid}", params = "forstudent", method = RequestMethod.POST)
-	public String createStudent(@PathVariable("sid") Long sid,
-			@Valid WorkEffort workEffort, BindingResult result, Model model,
-			HttpServletRequest request) {
     public String createStudent(@PathVariable("sid") Long sid, FormWorkEffortForStudent formWorkEffortForStudent, BindingResult result, Model model, HttpServletRequest request) {
 		workEffortForStudentValidator.validate(formWorkEffortForStudent, result);
 		if (result.hasErrors()) {
-			model.addAttribute("workEffort", workEffort);
-			addDateTimeFormatPatterns(model);
-			Student student = Student.findStudent(sid);
-			// Set<WorkRequirement> workRequirements =
-			// student.getWorkRequirements();
-			// model.addAttribute("studentworkrequirements", workRequirements);
-			Set<Major> majors = student.getMajors();
-			model.addAttribute("studentmajors", majors);
-			model.addAttribute("sid", sid);
-			return "workefforts/createFromStudent";
-		}
-		workEffort.persist();
-		workEffort.getStudent().addWorkEffort(workEffort);
-		workEffort.getStudent().merge();
-		return "redirect:/workefforts/"
-				+ encodeUrlPathSegment(workEffort.getId().toString(), request);
-	}
-
             model.addAttribute("formWorkEffortForStudent", formWorkEffortForStudent);
             addDateTimeFormatPatterns(model);
             Student student = Student.findStudent(sid);
@@ -101,28 +74,14 @@ public class WorkEffortController {
 		}
 		workEffort.setWorkRequirements(workRequirements);
 		workEffort.persist();
-		
+
 		Student student = workEffort.getStudent();
 		student.addWorkEffort(workEffort);
 		student.merge();
         return "redirect:/workefforts/" + encodeUrlPathSegment(formWorkEffortForStudent.getWorkEffort().getId().toString(), request);
     }
-	
-	@RequestMapping(method = RequestMethod.POST)
-	public String create(@Valid WorkEffort workEffort, BindingResult result,
-			Model model, HttpServletRequest request) {
-		if (result.hasErrors()) {
-			model.addAttribute("workEffort", workEffort);
-			addDateTimeFormatPatterns(model);
-			return "workefforts/create";
-		}
-		workEffort.persist();
-		workEffort.getStudent().addWorkEffort(workEffort);
-		workEffort.getStudent().merge();
-		return "redirect:/workefforts/"
-				+ encodeUrlPathSegment(workEffort.getId().toString(), request);
-	}
 
+	@RequestMapping(method = RequestMethod.POST)
     public String create(WorkEffort workEffort, BindingResult result, Model model, HttpServletRequest request) {
         workEffortValidator.validate(workEffort, result);
 		if (result.hasErrors()) {
@@ -135,7 +94,7 @@ public class WorkEffortController {
         workEffort.getStudent().merge();
         return "redirect:/workefforts/" + encodeUrlPathSegment(workEffort.getId().toString(), request);
     }
-	
+
 	@RequestMapping(method = RequestMethod.PUT)
     public String update(WorkEffort workEffort, BindingResult result, Model model, HttpServletRequest request) {
         workEffortValidator.validate(workEffort, result);
@@ -146,41 +105,20 @@ public class WorkEffortController {
         workEffort.merge();
         return "redirect:/workefforts/" + encodeUrlPathSegment(workEffort.getId().toString(), request);
     }
-	
+
 	@RequestMapping(params = "form", method = RequestMethod.GET)
-	public String createForm(Model model) {
-		model.addAttribute("workEffort", new WorkEffort());
-		addDateTimeFormatPatterns(model);
-		List dependencies = new ArrayList();
-		if (Student.countStudents() == 0) {
-			dependencies.add(new String[] { "student", "students" });
-		}
-		model.addAttribute("dependencies", dependencies);
-		return "workefforts/create";
-	}
+    public String createForm(Model model) {
+        model.addAttribute("workEffort", new WorkEffort());
+        addDateTimeFormatPatterns(model);
+        List dependencies = new ArrayList();
+        if (Student.countStudents() == 0) {
+            dependencies.add(new String[]{"student", "students"});
+        }
+        model.addAttribute("dependencies", dependencies);
+        return "workefforts/create";
+    }
 
 	@RequestMapping(value = "/{sid}", params = "forstudent", method = RequestMethod.GET)
-	public String createStudentForm(@PathVariable("sid") Long sid, Model model) {
-		model.addAttribute("workEffort", new WorkEffort());
-		addDateTimeFormatPatterns(model);
-		List dependencies = new ArrayList();
-		if (Student.countStudents() == 0) {
-			dependencies.add(new String[] { "student", "students" });
-		}
-		Student student = Student.findStudent(sid);
-		// Set<WorkRequirement> workRequirements =
-		// student.getWorkRequirements();
-		// model.addAttribute("studentworkrequirements", workRequirements);
-		Set<Major> majors = student.getMajors();
-		model.addAttribute("studentmajors", majors);
-		model.addAttribute("dependencies", dependencies);
-		model.addAttribute("sid", sid);
-		// TODO check if one is able to place the value of the student here
-		// without relying on the hidden form element
-		// RESULT apparently it cannot be done
-		return "workefforts/createFromStudent";
-	}
-
     public String createStudentForm(@PathVariable("sid") Long sid, Model model) {
         model.addAttribute("formWorkEffortForStudent", new FormWorkEffortForStudent());
         addDateTimeFormatPatterns(model);
@@ -197,33 +135,26 @@ public class WorkEffortController {
         // RESULT apparently it cannot be done
         return "workefforts/createFromStudent";
     }
-	
+
 	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
-	public String updateForm(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("workEffort", WorkEffort.findWorkEffort(id));
-		addDateTimeFormatPatterns(model);
-		return "workefforts/update";
-	}
+    public String updateForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("workEffort", WorkEffort.findWorkEffort(id));
+        addDateTimeFormatPatterns(model);
+        return "workefforts/update";
+    }
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@RequestMapping(params = "mywork", method = RequestMethod.GET)
 	public String listPersonalWork(Model model) {
 		model.addAttribute("str", "A list to contain your completed jobs");
 		Student student = userInformation.getStudent();
-		List<WorkEffort> workEfforts = WorkEffort
-				.findWorkEffortsByStudentEquals(student).getResultList();
+		List<WorkEffort> workEfforts = WorkEffort.findWorkEffortsByStudentEquals(student).getResultList();
 		model.addAttribute("workefforts", workEfforts);
 		return "workefforts/mywork";
 	}
 
 	void addDateTimeFormatPatterns(Model model) {
-		model.addAttribute(
-				"workEffortDuration_startdate_date_format",
-				DateTimeFormat.patternForStyle("S-",
-						LocaleContextHolder.getLocale()));
-		model.addAttribute(
-				"workEffortDuration_enddate_date_format",
-				DateTimeFormat.patternForStyle("S-",
-						LocaleContextHolder.getLocale()));
-	}
+        model.addAttribute("workEffortDuration_startdate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
+        model.addAttribute("workEffortDuration_enddate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
+    }
 }
