@@ -9,20 +9,36 @@ import java.util.Date;
 
 privileged aspect FormWorkEffortQuery_Roo_JavaBean {
     
+    public String FormWorkEffortQuery.getStudentFirstName() {
+        return this.studentFirstName;
+    }
+    
+    public void FormWorkEffortQuery.setStudentFirstName(String studentFirstName) {
+        this.studentFirstName = studentFirstName;
+    }
+    
+    public String FormWorkEffortQuery.getStudentLastName() {
+        return this.studentLastName;
+    }
+    
+    public void FormWorkEffortQuery.setStudentLastName(String studentLastName) {
+        this.studentLastName = studentLastName;
+    }
+    
+    public String FormWorkEffortQuery.getStudentMiddleName() {
+        return this.studentMiddleName;
+    }
+    
+    public void FormWorkEffortQuery.setStudentMiddleName(String studentMiddleName) {
+        this.studentMiddleName = studentMiddleName;
+    }
+    
     public String FormWorkEffortQuery.getUserId() {
         return this.userId;
     }
     
     public void FormWorkEffortQuery.setUserId(String userId) {
         this.userId = userId;
-    }
-    
-    public boolean FormWorkEffortQuery.isUserIdSelected() {
-        return this.userIdSelected;
-    }
-    
-    public void FormWorkEffortQuery.setUserIdSelected(boolean userIdSelected) {
-        this.userIdSelected = userIdSelected;
     }
     
     public String FormWorkEffortQuery.getEmployerName() {
@@ -33,28 +49,12 @@ privileged aspect FormWorkEffortQuery_Roo_JavaBean {
         this.employerName = employerName;
     }
     
-    public boolean FormWorkEffortQuery.isEmployerNameSelected() {
-        return this.employerNameSelected;
-    }
-    
-    public void FormWorkEffortQuery.setEmployerNameSelected(boolean employerNameSelected) {
-        this.employerNameSelected = employerNameSelected;
-    }
-    
     public String FormWorkEffortQuery.getEmployerLocation() {
         return this.employerLocation;
     }
     
     public void FormWorkEffortQuery.setEmployerLocation(String employerLocation) {
         this.employerLocation = employerLocation;
-    }
-    
-    public boolean FormWorkEffortQuery.isEmployerLocationSelected() {
-        return this.employerLocationSelected;
-    }
-    
-    public void FormWorkEffortQuery.setEmployerLocationSelected(boolean employerLocationSelected) {
-        this.employerLocationSelected = employerLocationSelected;
     }
     
     public Validation FormWorkEffortQuery.getValidation() {
@@ -87,14 +87,6 @@ privileged aspect FormWorkEffortQuery_Roo_JavaBean {
     
     public void FormWorkEffortQuery.setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-    
-    public boolean FormWorkEffortQuery.isDatesSelected() {
-        return this.datesSelected;
-    }
-    
-    public void FormWorkEffortQuery.setDatesSelected(boolean datesSelected) {
-        this.datesSelected = datesSelected;
     }
     
 }

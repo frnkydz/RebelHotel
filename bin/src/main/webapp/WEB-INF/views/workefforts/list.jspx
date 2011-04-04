@@ -13,7 +13,15 @@
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_supervisor" property="supervisor" z="S6KkC7EF7oeU0sEc1AFFRjqORSs="/>
             
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_verificationType" property="verificationType" z="MGQCkhfpM9QFk9e54ZiPu2wDW98="/>
-        <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_validation" property="validation" z="j3ucuceOCAQwBbPPHBNqMcj0YK0="/>
+            
+            
+            
+            
+        
+            
+            
+            
+        <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_employer" property="employer" z="4uSWB1sTeKX9EFEegu3xVtIsBtM="/>
         </table:table>
     </page:list>
 </div>

@@ -11,6 +11,9 @@ body {
 	text-align: center;
 }
 
+#hidden {
+	display:none;
+	}
 #header {
 	
 	margin-top: 1em;

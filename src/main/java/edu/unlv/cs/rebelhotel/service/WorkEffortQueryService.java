@@ -22,25 +22,45 @@ import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
 public class WorkEffortQueryService {
 
 	public List<WorkEffort> queryWorkEfforts(FormWorkEffortQuery fweq) {
-		DetachedCriteria search = DetachedCriteria.forClass(WorkEffort.class);
 
-		if (fweq.isUserIdSelected()) {
-			search.createCriteria("student").add(
-					Restrictions.eq("userId", fweq.getUserId()));
+		DetachedCriteria search = DetachedCriteria.forClass(WorkEffort.class);
+		search.createAlias("student", "student");
+		// look for non-empty fields here
+
+		if (fweq.getUserId() != "") {
+			search.add(Restrictions.eq("student.userId", fweq.getUserId()));
 		}
-		if (fweq.isEmployerNameSelected()) {
+		if (fweq.getStudentFirstName() != "") {
+
+			search.add(Restrictions.eq("student.firstName",
+					fweq.getStudentFirstName()));
+		}
+		if (fweq.getStudentMiddleName() != "") {
+			search.add(Restrictions.eq("student.middleName",
+					fweq.getStudentMiddleName()));
+
+		}
+		if (fweq.getStudentLastName() != "") {
+			search.add(Restrictions.eq("student.lastName",
+					fweq.getStudentLastName()));
+
+		}
+		if (fweq.getEmployerName() != "") {
 			search.add(Restrictions.eq("employer.name", fweq.getEmployerName()));
 		}
-		if (fweq.isEmployerLocationSelected()) {
+		if (fweq.getEmployerLocation() != "") {
 			search.add(Restrictions.eq("employer.location",
 					fweq.getEmployerLocation()));
 		}
 
 		if (fweq.isValidationSelected()) {
-			search.add(Restrictions.eq("validation",fweq.getValidation()));
+			search.add(Restrictions.eq("validation", fweq.getValidation()));
 		}
-		if (fweq.isDatesSelected()) {
-			search.add(Restrictions.between("duration.endDate",fweq.getStartDate(),fweq.getEndDate()));
+		if (fweq.getStartDate() != null) {
+			search.add(Restrictions.ge("duration.endDate", fweq.getStartDate()));
+		}
+		if (fweq.getEndDate() != null) {
+			search.add(Restrictions.le("duration.startDate", fweq.getEndDate()));
 		}
 		List workefforts;
 
@@ -60,10 +80,11 @@ public class WorkEffortQueryService {
 	}
 
 	public String buildPropertiesString() {
-		String properties = "id";
-
-		properties += ",student";
-		properties +=",employer";
+		String properties = "student";
+		properties += ",workPosition";
+		properties += ",employer";
+		properties += ",verificationType";
+		properties += ",validation";
 		/*
 		 * if (properties.length() > 0) { properties = properties.substring(1);
 		 * }
@@ -78,28 +99,46 @@ public class WorkEffortQueryService {
 				.getApplicationContext();
 
 		String properties = messageSource.getMessage(
-				"label_edu_unlv_cs_rebelhotel_domain_student_id", null,
-				LocaleContextHolder.getLocale());
-		
-		properties += ","+ messageSource.getMessage(
 				"label_edu_unlv_cs_rebelhotel_domain_student", null,
 				LocaleContextHolder.getLocale());
-		
-		
-		 properties += ","+ messageSource.getMessage(
-				"label_edu_unlv_cs_rebelhotel_domain_workeffort_employer", null,
-				LocaleContextHolder.getLocale());
+
+		properties += ","
+				+ messageSource
+						.getMessage(
+								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_workposition",
+								null, LocaleContextHolder.getLocale());
+
+		properties += ","
+				+ messageSource
+						.getMessage(
+								"label_edu_unlv_cs_rebelhotel_domain_workeffort_employer",
+								null, LocaleContextHolder.getLocale());
+
+		properties += ","
+				+ messageSource
+						.getMessage(
+								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_verificationtype",
+								null, LocaleContextHolder.getLocale());
+		properties += ","
+				+ messageSource
+						.getMessage(
+								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_validation",
+								null, LocaleContextHolder.getLocale());
 		return properties;
 	}
 
 	public String buildMaxLengthsString() {
 		// these will determine how many characters the table.jspx will display
 		// per data column; table.jspx defaults to 10, so this does too
-		String properties = "10";
+		String properties = "35";
 
 		properties += ",30";
-		
-		properties +=",50";
+
+		properties += ",30";
+
+		properties += ",20";
+
+		properties += ",20";
 
 		return properties;
 	}

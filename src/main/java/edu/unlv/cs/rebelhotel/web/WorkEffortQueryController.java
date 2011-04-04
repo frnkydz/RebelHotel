@@ -36,6 +36,7 @@ import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
 import edu.unlv.cs.rebelhotel.domain.enums.Validation;
 import edu.unlv.cs.rebelhotel.service.StudentQueryService;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
+import edu.unlv.cs.rebelhotel.validators.WorkEffortQueryValidator;
 import edu.unlv.cs.rebelhotel.validators.WorkEffortValidator;
 
 import org.joda.time.format.DateTimeFormat;
@@ -63,16 +64,17 @@ public class WorkEffortQueryController {
 	@Autowired
 	WorkEffortQueryService workeffortqueryservice;
 
-	//@InitBinder
-	public void initBinder(WebDataBinder binder ) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				dateFormat, false));
-	}
+	@Autowired
+	WorkEffortQueryValidator workeffortqueryvalidator;
+	
+
 
 	void setWorkEffortQueryService(WorkEffortQueryService workeffortqueryservice) {
 		this.workeffortqueryservice = workeffortqueryservice;
+	}
+	
+	void setWorkEffortQueryValidator(WorkEffortQueryValidator workeffortqueryvalidator){
+		this.workeffortqueryvalidator = workeffortqueryvalidator;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}")
@@ -85,13 +87,13 @@ public class WorkEffortQueryController {
 	@RequestMapping(params = "query", method = RequestMethod.POST)
 	public String queryList(@Valid FormWorkEffortQuery form,
 			BindingResult result, Model model, HttpServletRequest request) {
-
+		workeffortqueryvalidator.validate(form,result);
 		if (result.hasErrors()) {
 			model.addAttribute("formworkeffortquery", form);
-			model.addAttribute("error",result.getFieldErrors().toString());
 			addDateTimeFormatPatterns(model);
 			return "workeffortquery/findWorkEfforts";
 		}
+		
 
 		List<WorkEffort> workefforts = workeffortqueryservice
 				.queryWorkEfforts(form);
@@ -99,6 +101,9 @@ public class WorkEffortQueryController {
 		String labels = workeffortqueryservice.buildLabelsString();
 		String maxLengths = workeffortqueryservice.buildMaxLengthsString();
 
+		
+		model.addAttribute("formworkeffortquery", form);
+		addDateTimeFormatPatterns(model);
 		model.addAttribute("workefforts", workefforts);
 		model.addAttribute("tempColumnProperties", properties);
 		model.addAttribute("tempColumnLabels", labels);

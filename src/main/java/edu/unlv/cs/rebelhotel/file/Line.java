@@ -112,4 +112,4 @@ public class Line {
 			return makeTerm(term);
 		}
 	}
-}import java.util.HashSet;
+}

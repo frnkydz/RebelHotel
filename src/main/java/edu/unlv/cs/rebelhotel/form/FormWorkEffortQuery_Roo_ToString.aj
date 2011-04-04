@@ -9,6 +9,9 @@ privileged aspect FormWorkEffortQuery_Roo_ToString {
     
     public String FormWorkEffortQuery.toString() {
         StringBuilder sb = new StringBuilder();
+        sb.append("StudentFirstName: ").append(getStudentFirstName()).append(", ");
+        sb.append("StudentLastName: ").append(getStudentLastName()).append(", ");
+        sb.append("StudentMiddleName: ").append(getStudentMiddleName()).append(", ");
         sb.append("UserId: ").append(getUserId()).append(", ");
         sb.append("EmployerName: ").append(getEmployerName()).append(", ");
         sb.append("EmployerLocation: ").append(getEmployerLocation()).append(", ");

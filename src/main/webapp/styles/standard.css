@@ -421,3 +421,7 @@ fieldset th {
 	color: #FF0000;
 	background: #fff;
 }
+
+.hidden{
+	display:none;
+	}

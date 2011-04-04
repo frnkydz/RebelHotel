@@ -16,14 +16,17 @@ import javax.persistence.Enumerated;
 @RooToString
 public class FormWorkEffortQuery {
 
+	private String studentFirstName;
+	
+	private String studentLastName;
+	
+	private String studentMiddleName;
+	
 	private String userId;
-	private boolean userIdSelected;
 
 	private String employerName;
-	private boolean employerNameSelected;
 
 	private String employerLocation;
-	private boolean employerLocationSelected;
 
 	@Enumerated
 	private Validation validation;
@@ -37,34 +40,5 @@ public class FormWorkEffortQuery {
 	@DateTimeFormat(style = "S-")
 	private Date endDate;
 
-	private boolean datesSelected;
-
-	public void setStartDate(String startDate) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = new java.util.Date();
-		try {
-			date = sdf.parse(startDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// TODO Auto-generated method stub
-		this.startDate = date;
-	}
-
-	public void setEndDate(String endDate) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = new java.util.Date();
-		try {
-			date = sdf.parse(endDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// TODO Auto-generated method stub
-		this.endDate = date;
-	}
 
 }

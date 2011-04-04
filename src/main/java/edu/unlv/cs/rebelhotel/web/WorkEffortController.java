@@ -6,14 +6,18 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortForStudent;
+import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
 import edu.unlv.cs.rebelhotel.service.UserInformation;
+import edu.unlv.cs.rebelhotel.service.WorkEffortQueryService;
 import edu.unlv.cs.rebelhotel.validators.WorkEffortForStudentValidator;
+import edu.unlv.cs.rebelhotel.validators.WorkEffortQueryValidator;
 import edu.unlv.cs.rebelhotel.validators.WorkEffortValidator;
 
 import org.joda.time.format.DateTimeFormat;
@@ -32,6 +36,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/workefforts")
 @Controller
 public class WorkEffortController {
+	
+	@Autowired
+	WorkEffortQueryService workeffortqueryservice;
+
+	@Autowired
+	WorkEffortQueryValidator workeffortqueryvalidator;
+	
+	void setWorkEffortQueryService(WorkEffortQueryService workeffortqueryservice) {
+		this.workeffortqueryservice = workeffortqueryservice;
+	}
+	
+	void setWorkEffortQueryValidator(WorkEffortQueryValidator workeffortqueryvalidator){
+		this.workeffortqueryvalidator = workeffortqueryvalidator;
+	}
 	@Autowired
 	private UserInformation userInformation;
 	
@@ -48,6 +66,56 @@ public class WorkEffortController {
 	public void setWorkEffortForStudentValidator(WorkEffortForStudentValidator workEffortForStudentValidator) {
 		this.workEffortForStudentValidator = workEffortForStudentValidator;
 	}
+	
+	
+	@RequestMapping(params = "query", method = RequestMethod.POST)
+	public String queryList(@Valid FormWorkEffortQuery form,
+			BindingResult result, Model model, HttpServletRequest request) {
+		workeffortqueryvalidator.validate(form,result);
+		if (result.hasErrors()) {
+			model.addAttribute("formworkeffortquery", form);
+			addDateTimeFormatPatterns(model);
+			return "workefforts/findWorkEfforts";
+		}
+		
+
+		List<WorkEffort> workefforts = workeffortqueryservice
+				.queryWorkEfforts(form);
+		String properties = workeffortqueryservice.buildPropertiesString();
+		String labels = workeffortqueryservice.buildLabelsString();
+		String maxLengths = workeffortqueryservice.buildMaxLengthsString();
+
+		model.addAttribute("workefforts", workefforts);
+		model.addAttribute("tempColumnProperties", properties);
+		model.addAttribute("tempColumnLabels", labels);
+		model.addAttribute("tempColumnMaxLengths", maxLengths);
+		return "workefforts/queryList";
+	}
+
+	@RequestMapping(params = { "query", "form" }, method = RequestMethod.GET)
+	public String query(Model model) {
+		FormWorkEffortQuery fweq = new FormWorkEffortQuery();
+		model.addAttribute("formworkeffortquery", fweq);
+		addDateTimeFormatPatterns(model);
+		return "workefforts/findWorkEfforts";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// NOTE : the params string should not be equivalent to any of the fields in the form
 	// otherwise the validator (?) will assume the params value is set to null (?) ... very annoying bug
@@ -164,4 +232,5 @@ public class WorkEffortController {
         model.addAttribute("workEffortDuration_startdate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
         model.addAttribute("workEffortDuration_enddate_date_format", DateTimeFormat.patternForStyle("S-", LocaleContextHolder.getLocale()));
     }
+	
 }
