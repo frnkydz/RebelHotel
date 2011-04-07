@@ -8,6 +8,9 @@
 	modelAttribute="formworkeffortquery" path="/workefforts?query"
 	render="${empty dependencies}" z="Uf7OgrlFmtWkcuJmcJOSqG30iWM=">
 
+	<input name="page" type="hidden" value="1" />
+    <input name="size" type="hidden" value="10" />
+
 	<table>
 		<th>Search Work Efforts By...</th>
 		<tr>

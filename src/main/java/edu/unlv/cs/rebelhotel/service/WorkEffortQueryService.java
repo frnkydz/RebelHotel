@@ -26,6 +26,7 @@ public class WorkEffortQueryService {
 		DetachedCriteria search = DetachedCriteria.forClass(WorkEffort.class);
 		search.createAlias("student", "student");
 		// look for non-empty fields here
+	
 
 		if (fweq.getUserId() != "") {
 			search.add(Restrictions.eq("student.userId", fweq.getUserId()));

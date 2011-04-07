@@ -28,10 +28,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+@SessionAttributes("workEffortsList")
 @RooWebScaffold(path = "workefforts", formBackingObject = WorkEffort.class, exposeFinders=false)
 @RequestMapping("/workefforts")
 @Controller
@@ -69,7 +73,7 @@ public class WorkEffortController {
 	
 	
 	@RequestMapping(params = "query", method = RequestMethod.POST)
-	public String queryList(@Valid FormWorkEffortQuery form,
+	public String queryList(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size,@Valid FormWorkEffortQuery form,
 			BindingResult result, Model model, HttpServletRequest request) {
 		workeffortqueryvalidator.validate(form,result);
 		if (result.hasErrors()) {
@@ -77,20 +81,51 @@ public class WorkEffortController {
 			addDateTimeFormatPatterns(model);
 			return "workefforts/findWorkEfforts";
 		}
-		
+		List<WorkEffort> workEffortsList = workeffortqueryservice.queryWorkEfforts(form);
+		model.addAttribute("workEffortsList", workEffortsList);
 
-		List<WorkEffort> workefforts = workeffortqueryservice
-				.queryWorkEfforts(form);
-		String properties = workeffortqueryservice.buildPropertiesString();
-		String labels = workeffortqueryservice.buildLabelsString();
-		String maxLengths = workeffortqueryservice.buildMaxLengthsString();
+		if (page != null || size != null) {
+            int sizeNo = size == null ? 10 : size.intValue();
+            int pageNo = page == null ? 0 : page.intValue();
+            int to = pageNo*sizeNo < workEffortsList.size() ? pageNo*sizeNo : workEffortsList.size();
+            int from = to-sizeNo < 0 ? 0 : to - sizeNo;
+            model.addAttribute("workefforts", workEffortsList.subList(from, to));
+            float nrOfPages = (float) workEffortsList.size() / sizeNo;
+            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+        } else {
+            model.addAttribute("workefforts",workEffortsList);
+        }
+	
 
-		model.addAttribute("workefforts", workefforts);
-		model.addAttribute("tempColumnProperties", properties);
-		model.addAttribute("tempColumnLabels", labels);
-		model.addAttribute("tempColumnMaxLengths", maxLengths);
 		return "workefforts/queryList";
 	}
+	
+	@RequestMapping(params = "query", method = RequestMethod.GET)
+	public String queryList2(@RequestParam(value = "page", required = false) Integer page,
+							@RequestParam(value = "size", required = false) Integer size,
+							@ModelAttribute("workEffortsList") List<WorkEffort> workEffortsList,
+							BindingResult result, Model model, HttpServletRequest request) {
+		
+		if (page != null || size != null) {
+            int sizeNo = size == null ? 10 : size.intValue();
+            int pageNo = page == null ? 0 : page.intValue();
+            int to = pageNo*sizeNo < workEffortsList.size() ? pageNo*sizeNo : workEffortsList.size();
+            int from = to-sizeNo < 0 ? 0 : to - sizeNo;
+            model.addAttribute("workefforts", workEffortsList.subList(from, to));
+            float nrOfPages = (float) workEffortsList.size() / sizeNo;
+            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
+        } else {
+            model.addAttribute("workefforts",workEffortsList);
+        }
+		return "workefforts/queryList";
+
+		
+	}
+	
+	
+	
+	
+	
 
 	@RequestMapping(params = { "query", "form" }, method = RequestMethod.GET)
 	public String query(Model model) {
@@ -100,23 +135,6 @@ public class WorkEffortController {
 		return "workefforts/findWorkEfforts";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	// NOTE : the params string should not be equivalent to any of the fields in the form
 	// otherwise the validator (?) will assume the params value is set to null (?) ... very annoying bug
 	@RequestMapping(value = "/{sid}", params = "forstudent", method = RequestMethod.POST)

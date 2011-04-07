@@ -26,6 +26,7 @@
         </c:when>
         <c:otherwise>
           <spring:url value="" var="sizeUrl">
+             <spring:param name="query"/>
             <spring:param name="page" value="1" />
             <spring:param name="size" value="${i}" />
           </spring:url>
@@ -63,6 +64,7 @@
     <c:out value=" " />
     <c:if test="${page lt maxPages}">
       <spring:url value="" var="next">
+        <spring:param name="query" />
         <spring:param name="page" value="${page + 1}" />
         <spring:param name="size" value="${size}" />
       </spring:url>
