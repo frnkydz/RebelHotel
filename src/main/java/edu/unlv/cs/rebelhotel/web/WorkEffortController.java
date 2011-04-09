@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-@SessionAttributes("workEffortsList")
+@SessionAttributes("workeffortslist")
 @RooWebScaffold(path = "workefforts", formBackingObject = WorkEffort.class, exposeFinders=false)
 @RequestMapping("/workefforts")
 @Controller
@@ -82,36 +82,22 @@ public class WorkEffortController {
 		if (result.hasErrors()) {
 			model.addAttribute("formworkeffortquery", form);
 			addDateTimeFormatPatterns(model);
-			return "workeffortquery/findWorkEfforts";
+			return "workefforts/findWorkEfforts";
 		}
-
-		List<WorkEffort> workEffortsList = workeffortqueryservice
-				.queryWorkEfforts(form);
-		model.addAttribute("workeffortslsit", workEffortsList);
-
-		if (page != null || size != null) {
-			int sizeNo = size == null ? 10 : size.intValue();
-			int pageNo = page == null ? 1 : page.intValue();
-			int from = sizeNo * pageNo < workEffortsList.size() ? sizeNo * pageNo : workEffortsList.size();
-			int to = (pageNo - 1) * sizeNo;
-			model.addAttribute("workefforts", workEffortsList.subList(to, from));
-			float nrOfPages = (float) workEffortsList.size() / sizeNo;
-			model.addAttribute(
-					"maxPages",
-					(int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1
-							: nrOfPages));
-		} else {
-			model.addAttribute("workefforts", workEffortsList);
-		}
-
-		return "workeffortquery/queryList";
+	
+		List<WorkEffort> workEffortsList = workeffortqueryservice.queryWorkEfforts(form);
+		
+		 model.addAttribute("workeffortslist", workEffortsList);
+		 model.addAttribute("page", (page == null) ? "1" : page.toString());
+	     model.addAttribute("size", (size == null) ? "10" : size.toString());
+	     return "redirect:/workefforts?query&page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
 	}
 
 	@RequestMapping(params = "query", method = RequestMethod.GET)
 	public String queryList(
 			@RequestParam(value = "page", required = false) Integer page,
 			@RequestParam(value = "size", required = false) Integer size,
-			@ModelAttribute("workeffortlist") List<WorkEffort> workEffortsList,
+			@ModelAttribute("workeffortslist") List<WorkEffort> workEffortsList,
 			BindingResult result, Model model, HttpServletRequest request) {
 
 		if (page != null || size != null) {
@@ -126,7 +112,7 @@ public class WorkEffortController {
 			model.addAttribute("workefforts", workEffortsList);
 		}
 
-		return "workeffortquery/queryList";
+		return "workefforts/queryList";
 	}
 	
 	
