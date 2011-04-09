@@ -27,7 +27,7 @@ public class WorkEffortQueryService {
 		search.createAlias("student", "student");
 		// look for non-empty fields here
 	
-
+		
 		if (fweq.getUserId() != "") {
 			search.add(Restrictions.eq("student.userId", fweq.getUserId()));
 		}
@@ -75,73 +75,9 @@ public class WorkEffortQueryService {
 		session.beginTransaction();
 		workefforts = rootQuery.getExecutableCriteria(session).list();
 		session.close();
-
 		return workefforts;
 
 	}
 
-	public String buildPropertiesString() {
-		String properties = "student";
-		properties += ",workPosition";
-		properties += ",employer";
-		properties += ",verificationType";
-		properties += ",validation";
-		/*
-		 * if (properties.length() > 0) { properties = properties.substring(1);
-		 * }
-		 */
-		return properties;
-	}
-
-	public String buildLabelsString() {
-		// hackish method of getting locale messages ... but this service
-		// apparently is not in scope of the locale definitions necessary here
-		MessageSource messageSource = SpringApplicationContext
-				.getApplicationContext();
-
-		String properties = messageSource.getMessage(
-				"label_edu_unlv_cs_rebelhotel_domain_student", null,
-				LocaleContextHolder.getLocale());
-
-		properties += ","
-				+ messageSource
-						.getMessage(
-								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_workposition",
-								null, LocaleContextHolder.getLocale());
-
-		properties += ","
-				+ messageSource
-						.getMessage(
-								"label_edu_unlv_cs_rebelhotel_domain_workeffort_employer",
-								null, LocaleContextHolder.getLocale());
-
-		properties += ","
-				+ messageSource
-						.getMessage(
-								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_verificationtype",
-								null, LocaleContextHolder.getLocale());
-		properties += ","
-				+ messageSource
-						.getMessage(
-								"label_edu_unlv_cs_rebelhotel_form_formworkeffort_validation",
-								null, LocaleContextHolder.getLocale());
-		return properties;
-	}
-
-	public String buildMaxLengthsString() {
-		// these will determine how many characters the table.jspx will display
-		// per data column; table.jspx defaults to 10, so this does too
-		String properties = "35";
-
-		properties += ",30";
-
-		properties += ",30";
-
-		properties += ",20";
-
-		properties += ",20";
-
-		return properties;
-	}
 
 }
