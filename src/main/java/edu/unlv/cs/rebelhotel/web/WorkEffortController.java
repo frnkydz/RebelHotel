@@ -73,53 +73,60 @@ public class WorkEffortController {
 	
 	
 	@RequestMapping(params = "query", method = RequestMethod.POST)
-	public String queryList(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size,@Valid FormWorkEffortQuery form,
-			BindingResult result, Model model, HttpServletRequest request) {
-		workeffortqueryvalidator.validate(form,result);
+	public String queryList(
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "size", required = false) Integer size,
+			@Valid FormWorkEffortQuery form, BindingResult result, Model model,
+			HttpServletRequest request) {
+		workeffortqueryvalidator.validate(form, result);
 		if (result.hasErrors()) {
 			model.addAttribute("formworkeffortquery", form);
 			addDateTimeFormatPatterns(model);
-			return "workefforts/findWorkEfforts";
+			return "workeffortquery/findWorkEfforts";
 		}
-		List<WorkEffort> workEffortsList = workeffortqueryservice.queryWorkEfforts(form);
-		model.addAttribute("workEffortsList", workEffortsList);
+
+		List<WorkEffort> workEffortsList = workeffortqueryservice
+				.queryWorkEfforts(form);
+		model.addAttribute("workeffortslsit", workEffortsList);
 
 		if (page != null || size != null) {
-            int sizeNo = size == null ? 10 : size.intValue();
-            int pageNo = page == null ? 0 : page.intValue();
-            int to = pageNo*sizeNo < workEffortsList.size() ? pageNo*sizeNo : workEffortsList.size();
-            int from = to-sizeNo < 0 ? 0 : to - sizeNo;
-            model.addAttribute("workefforts", workEffortsList.subList(from, to));
-            float nrOfPages = (float) workEffortsList.size() / sizeNo;
-            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
-        } else {
-            model.addAttribute("workefforts",workEffortsList);
-        }
-	
+			int sizeNo = size == null ? 10 : size.intValue();
+			int pageNo = page == null ? 1 : page.intValue();
+			int from = sizeNo * pageNo < workEffortsList.size() ? sizeNo * pageNo : workEffortsList.size();
+			int to = (pageNo - 1) * sizeNo;
+			model.addAttribute("workefforts", workEffortsList.subList(to, from));
+			float nrOfPages = (float) workEffortsList.size() / sizeNo;
+			model.addAttribute(
+					"maxPages",
+					(int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1
+							: nrOfPages));
+		} else {
+			model.addAttribute("workefforts", workEffortsList);
+		}
 
-		return "workefforts/queryList";
+		return "workeffortquery/queryList";
 	}
-	
-	@RequestMapping(params = "query", method = RequestMethod.GET)
-	public String queryList2(@RequestParam(value = "page", required = false) Integer page,
-							@RequestParam(value = "size", required = false) Integer size,
-							@ModelAttribute("workEffortsList") List<WorkEffort> workEffortsList,
-							BindingResult result, Model model, HttpServletRequest request) {
-		
-		if (page != null || size != null) {
-            int sizeNo = size == null ? 10 : size.intValue();
-            int pageNo = page == null ? 0 : page.intValue();
-            int to = pageNo*sizeNo < workEffortsList.size() ? pageNo*sizeNo : workEffortsList.size();
-            int from = to-sizeNo < 0 ? 0 : to - sizeNo;
-            model.addAttribute("workefforts", workEffortsList.subList(from, to));
-            float nrOfPages = (float) workEffortsList.size() / sizeNo;
-            model.addAttribute("maxPages", (int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1 : nrOfPages));
-        } else {
-            model.addAttribute("workefforts",workEffortsList);
-        }
-		return "workefforts/queryList";
 
-		
+	@RequestMapping(params = "query", method = RequestMethod.GET)
+	public String queryList(
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "size", required = false) Integer size,
+			@ModelAttribute("workeffortlist") List<WorkEffort> workEffortsList,
+			BindingResult result, Model model, HttpServletRequest request) {
+
+		if (page != null || size != null) {
+			int sizeNo = size == null ? 10 : size.intValue();
+			int pageNo = page == null ? 1 : page.intValue();
+			int from = sizeNo * pageNo < workEffortsList.size() ? sizeNo * pageNo : workEffortsList.size();
+			int to = (pageNo - 1) * sizeNo;
+			model.addAttribute("workefforts", workEffortsList.subList(to, from));
+			float nrOfPages = (float) workEffortsList.size() / sizeNo;
+			model.addAttribute("maxPages",(int) ((nrOfPages > (int) nrOfPages || nrOfPages == 0.0) ? nrOfPages + 1: nrOfPages));
+		} else {
+			model.addAttribute("workefforts", workEffortsList);
+		}
+
+		return "workeffortquery/queryList";
 	}
 	
 	
