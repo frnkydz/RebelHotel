@@ -1,5 +1,5 @@
 package edu.unlv.cs.rebelhotel.file;
-
+/*
 import edu.unlv.cs.rebelhotel.file.Line;
 import edu.unlv.cs.rebelhotel.file.FileStudent;
 
@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultParser implements Parser {
 
-	/** 
+	/*
 	 * Parse receives a list of list of strings as the input parameter.
 	 * (Imagine a list of lines, and each line is a list of strings (tokens))
 	 * 
 	 * @return Set<FileStudent>
-	 */
+	 
 	public Set<FileStudent> parse(List<List<String>> contents) {
 		Map<String,List<Line>> entries = new HashMap<String,List<Line>>();
 		Set<FileStudent> fileStudents = new HashSet<FileStudent>();
@@ -43,3 +43,4 @@ public class DefaultParser implements Parser {
 		return fileStudents;
 	}
 }
+*/

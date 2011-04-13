@@ -11,6 +11,7 @@ public class UserAccountDataOnDemand {
 	public UserAccount getNewTransientUserAccount(int index) {
         edu.unlv.cs.rebelhotel.domain.UserAccount obj = new edu.unlv.cs.rebelhotel.domain.UserAccount();
         obj.setPassword("password_" + index);
+        obj.setEmail("email_"+index);
         obj.setPasswordEncoder(null);
         obj.setUserId("userId" + index);
         obj.setUserGroup(null);

@@ -31,6 +31,8 @@ public class FormStudent {
     private String lastName;
 
     private Term admitTerm;
+    
+    private int house;
 
     private Term gradTerm;
 

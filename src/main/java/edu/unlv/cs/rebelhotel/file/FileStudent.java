@@ -13,6 +13,7 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooJavaBean
 @RooToString
 public class FileStudent {
+	
 	private String studentId;
 	private String firstName;
 	private String middleName;
@@ -21,7 +22,7 @@ public class FileStudent {
 	private Set<Major> majors = new HashSet<Major>();
 	private Term admitTerm;
 	private Term gradTerm;
-
+/*
 	public Set<FileStudent> convert(Collection<List<Line>> student) {
 		Set<FileStudent> fileStudents = new HashSet<FileStudent>();
 		for (List<Line> lines : student) {
@@ -40,4 +41,5 @@ public class FileStudent {
 		}
 		return fileStudents;
 	}
+	*/
 }

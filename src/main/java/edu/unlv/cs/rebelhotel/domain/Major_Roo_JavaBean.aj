@@ -4,19 +4,9 @@
 package edu.unlv.cs.rebelhotel.domain;
 
 import edu.unlv.cs.rebelhotel.domain.Term;
-import edu.unlv.cs.rebelhotel.domain.WorkRequirement;
-import edu.unlv.cs.rebelhotel.domain.enums.Departments;
-import java.util.Set;
+import java.lang.String;
 
 privileged aspect Major_Roo_JavaBean {
-    
-    public Set<WorkRequirement> Major.getWorkRequirements() {
-        return this.workRequirements;
-    }
-    
-    public void Major.setWorkRequirements(Set<WorkRequirement> workRequirements) {
-        this.workRequirements = workRequirements;
-    }
     
     public boolean Major.isReachedMilestone() {
         return this.reachedMilestone;
@@ -26,12 +16,12 @@ privileged aspect Major_Roo_JavaBean {
         this.reachedMilestone = reachedMilestone;
     }
     
-    public Departments Major.getDepartment() {
-        return this.department;
+    public String Major.getDegreeCode() {
+        return this.degreeCode;
     }
     
-    public void Major.setDepartment(Departments department) {
-        this.department = department;
+    public void Major.setDegreeCode(String degreeCode) {
+        this.degreeCode = degreeCode;
     }
     
     public Term Major.getCatalogTerm() {
@@ -40,6 +30,14 @@ privileged aspect Major_Roo_JavaBean {
     
     public void Major.setCatalogTerm(Term catalogTerm) {
         this.catalogTerm = catalogTerm;
+    }
+    
+    public boolean Major.isCompleted_work_requirements() {
+        return this.completed_work_requirements;
+    }
+    
+    public void Major.setCompleted_work_requirements(boolean completed_work_requirements) {
+        this.completed_work_requirements = completed_work_requirements;
     }
     
 }

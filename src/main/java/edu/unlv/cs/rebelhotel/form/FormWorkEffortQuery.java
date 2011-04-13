@@ -10,6 +10,9 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
 
 import edu.unlv.cs.rebelhotel.domain.enums.Validation;
+import edu.unlv.cs.rebelhotel.domain.enums.Verification;
+import edu.unlv.cs.rebelhotel.domain.enums.VerificationType;
+
 import javax.persistence.Enumerated;
 
 @RooJavaBean
@@ -29,8 +32,19 @@ public class FormWorkEffortQuery {
 	private String employerLocation;
 
 	@Enumerated
+	private QuerySortOptions sortOptions;
+	
+	@Enumerated
 	private Validation validation;
 	private boolean validationSelected;
+	
+	@Enumerated
+	private Verification verification;
+	private boolean verificationSelected;
+	
+	@Enumerated
+	private VerificationType verificationType;
+	private boolean verificationTypeSelected;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(style = "S-")

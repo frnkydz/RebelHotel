@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
+/*
 import edu.unlv.cs.rebelhotel.file.StudentService;
-
+*/
 @Controller
 @RequestMapping("/file")
 public class FileUploadController {
 	//private final StudentService studentService;
 
-	//@Autowired
-	public FileUploadController(/*StudentService studentService*/) {
+	//@Autowired  
+	/*public FileUploadController(/*StudentService studentService*/   /*) {
 		//this.studentService = studentService;
 	}
-	
+	/*
 	@RequestMapping(params = "upload", method = RequestMethod.GET)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	public String uploadForm(Model model) {
@@ -41,8 +41,8 @@ public class FileUploadController {
 	/*	File file = File.createTempFile("students",".csv");
 		multipart_file.transferTo(file);
 		studentService.upload(file);*/
-		
+		/*
 		model.addAttribute("file_data", new String(file_data).toString());
 		return "file/show";
-	}
+	}*/
 }

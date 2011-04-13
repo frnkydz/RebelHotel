@@ -19,16 +19,16 @@ import javax.persistence.EnumType;
 @RooEntity(finders = { "findUserAccountsByUserId" })
 public class UserAccount {
 
-    @NotNull
+    //@NotNull
     @Column(unique = true)
     private String userId;
 
     private transient MessageDigestPasswordEncoder passwordEncoder;
 
-    @NotNull
+   // @NotNull
     private String password;
 
-    @NotNull
+    //@NotNull
     private String email;
     
     @Enumerated(EnumType.STRING)

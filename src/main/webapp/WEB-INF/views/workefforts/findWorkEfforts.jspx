@@ -42,7 +42,12 @@
 				items="${validations}" path="validations" z="" /> <field:checkbox
 				field="validationSelected"
 				id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useValidation" /></td>
-			<td></td>
+				<td><field:select field="verification"
+				id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_verification" items="${verifications}" path="verifications" z="" /> 
+				<field:checkbox field="verificationSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useVerification" /></td>
+			<td><field:select field="verificationType"
+				id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffort_verificationType" items="${verificationtypes}" path="verificationtypes" z="" /> 
+				<field:checkbox field="verificationTypeSelected" id="c_edu_unlv_cs_rebelhotel_form_FormWorkEffortQuery_useVerificationType" /></td>
 		</tr>
 		<tr>
 			<td><field:datetime
@@ -57,8 +62,14 @@
 			<td></td>
 
 		</tr>
-	</table>
-	
+		<tr>
+		<td>
+	    <field:select field="sortOptions" id="c_edu_unlv_cs_rebelhotel_form_formworkeffortquery_sortoptions"  items="${sortOptions}"  path="/workefforts" z="WL5SIPCYEuGRJqo0wAW1yfp1s6M="/>
+		</td>
+		<td></td>
+		<td></td>
+		</tr>
+		</table>
 </form:create>  
 
 </div>

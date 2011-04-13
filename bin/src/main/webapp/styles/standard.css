@@ -11,9 +11,6 @@ body {
 	text-align: center;
 }
 
-#hidden {
-	display:none;
-	}
 #header {
 	
 	margin-top: 1em;
@@ -23,9 +20,9 @@ body {
 }
 
 #wrapper {
-	width:800px;
+	/*width:800px;*/
 	min-width: 1024px;
-	max-width: 1024px;
+	max-width: auto;
 	margin-right: auto;
 	margin-left: auto;
 
@@ -116,7 +113,7 @@ table.navigation {
 }
 
 label {
-	width:100px;
+	width:200px;
 	float:left;
 	margin-left: 5px;
 	margin-top: 0px;
@@ -167,6 +164,8 @@ h1,h2,h3 {
 h1 {
 	font-size: 20px;
 	line-height: 26px;
+	color:#000000;
+	text-align:center;
 }
 
 h2 {
@@ -423,4 +422,9 @@ fieldset th {
 .menu a:hover {
 	color: #FF0000;
 	background: #fff;
+}
+
+
+.sortButtons {
+	float: right;
 }

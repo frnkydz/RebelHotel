@@ -75,6 +75,14 @@ privileged aspect FormStudent_Roo_JavaBean {
         this.admitTerm = admitTerm;
     }
     
+    public int FormStudent.getHouse() {
+        return this.house;
+    }
+    
+    public void FormStudent.setHouse(int house) {
+        this.house = house;
+    }
+    
     public Term FormStudent.getGradTerm() {
         return this.gradTerm;
     }

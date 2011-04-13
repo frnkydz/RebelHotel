@@ -8,6 +8,7 @@ import edu.unlv.cs.rebelhotel.domain.Term;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import java.lang.Boolean;
+import java.lang.Long;
 import java.lang.String;
 import java.util.Date;
 import java.util.Set;
@@ -20,14 +21,6 @@ privileged aspect Student_Roo_JavaBean {
     
     public void Student.setUserId(String userId) {
         this.userId = userId;
-    }
-    
-    public String Student.getEmail() {
-        return this.email;
-    }
-    
-    public void Student.setEmail(String email) {
-        this.email = email;
     }
     
     public String Student.getFirstName() {
@@ -108,6 +101,14 @@ privileged aspect Student_Roo_JavaBean {
     
     public void Student.setUserAccount(UserAccount userAccount) {
         this.userAccount = userAccount;
+    }
+    
+    public Long Student.getTotalHours() {
+        return this.totalHours;
+    }
+    
+    public void Student.setTotalHours(Long totalHours) {
+        this.totalHours = totalHours;
     }
     
 }

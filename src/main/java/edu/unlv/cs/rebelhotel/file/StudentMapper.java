@@ -7,7 +7,7 @@ import edu.unlv.cs.rebelhotel.domain.UserAccount;
 import edu.unlv.cs.rebelhotel.file.RandomPasswordGenerator;
 
 @Component
-public class StudentMapper {
+public class StudentMapper {/*
 	public Student findOrReplace(FileStudent fileStudent){
 		Student student = existingOrNewStudent(fileStudent);
 		student.setUserId(fileStudent.getStudentId());
@@ -48,5 +48,5 @@ public class StudentMapper {
 			studentAccount.persist();
 		}
 		return studentAccount;
-	}
+	}*/
 }

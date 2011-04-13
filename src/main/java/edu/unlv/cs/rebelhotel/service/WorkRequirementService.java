@@ -1,5 +1,5 @@
 package edu.unlv.cs.rebelhotel.service;
-
+/*
 import java.util.HashSet;
 //import java.util.List;
 import java.util.Set;
@@ -21,7 +21,7 @@ public class WorkRequirementService {
 		
 		/* now get the work requirements from those majors. 
 		 * this implementation might change later if Sam decides to make the changes he anticipated.
-		 */
+		 
 		
 		// Do this just in case the student is a preexisting one
 		for (Major each : current_majors) {
@@ -59,3 +59,4 @@ public class WorkRequirementService {
 		return current_majors;
 	}
 }
+*/

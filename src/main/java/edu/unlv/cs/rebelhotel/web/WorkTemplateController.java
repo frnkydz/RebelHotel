@@ -45,8 +45,8 @@ public class WorkTemplateController {
         workRequirement.persist();
         
         // NOTE: I am not sure if this is right.
-        Set<WorkRequirement> workRequirements = major.getWorkRequirements();
-        workRequirements.add(workRequirement);
+  //      Set<WorkRequirement> workRequirements = major.getWorkRequirements();
+ //       workRequirements.add(workRequirement);
         
         //Set<WorkRequirement> workRequirements = student.getWorkRequirements();
         //workRequirements.add(workRequirement);

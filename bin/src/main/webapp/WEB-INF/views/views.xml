@@ -6,6 +6,7 @@
 <tiles-definitions>
 
   <definition name="index" extends="default">
+  
     <put-attribute name="body" value="/WEB-INF/views/index.jspx" />
   </definition>
 
