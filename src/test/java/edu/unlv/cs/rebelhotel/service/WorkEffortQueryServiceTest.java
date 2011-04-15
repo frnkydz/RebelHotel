@@ -56,7 +56,7 @@ public class WorkEffortQueryServiceTest {
 	
 	}
 	
-	
+	/*
 	
 	@Test 
 	public void testPersistUserAccount(){
@@ -73,9 +73,9 @@ public class WorkEffortQueryServiceTest {
 		
 		Student obj = new Student();
 		obj.setUserId("userId_"+index);
-	//	obj.setUserAccount(userAccount);
+		obj.setUserAccount(userAccount);
     	
-    
+		//obj.setEmail("email_"+index);
     	obj.setFirstName("firstName_"+index);
     	obj.setMiddleName("middleName_"+index);
     	obj.setLastName("lastName_"+index);
@@ -91,9 +91,9 @@ public class WorkEffortQueryServiceTest {
 		
 		
 	}
+	*/
 	
 	
-	/*
 	@Test
 	public void testWorkEffortQuerySort() {
 		
@@ -155,7 +155,7 @@ public class WorkEffortQueryServiceTest {
 		    name2 = list.get(i+1).getStudent().getFirstName();
 		    assertTrue(name1.compareTo(name2) <= 0);
 	}
-	}*/
+	}
 	private void createPersistentWorkeffort(Student student ){
 		
 		

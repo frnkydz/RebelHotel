@@ -30,28 +30,28 @@ public class WorkEffortQueryService {
 		// look for non-empty fields here
 
 		
-		if (fweq.getUserId() != "") {
+		if (!fweq.getUserId().isEmpty() ) {
 			search.add(Restrictions.eq("student.userId", fweq.getUserId()));
 		}
-		if (fweq.getStudentFirstName() != "") {
+		if (!fweq.getStudentFirstName().isEmpty()) {
 
 			search.add(Restrictions.eq("student.firstName",
 					fweq.getStudentFirstName()));
 		}
-		if (fweq.getStudentMiddleName() != "") {
+		if (!fweq.getStudentMiddleName().isEmpty()) {
 			search.add(Restrictions.eq("student.middleName",
 					fweq.getStudentMiddleName()));
 
 		}
-		if (fweq.getStudentLastName() != "") {
+		if (!fweq.getStudentLastName().isEmpty()) {
 			search.add(Restrictions.eq("student.lastName",
 					fweq.getStudentLastName()));
 
 		}
-		if (fweq.getEmployerName() != "") {
+		if (!fweq.getEmployerName().isEmpty()) {
 			search.add(Restrictions.eq("employer.name", fweq.getEmployerName()));
 		}
-		if (fweq.getEmployerLocation() != "") {
+		if (!fweq.getEmployerLocation().isEmpty()) {
 			search.add(Restrictions.eq("employer.location",
 					fweq.getEmployerLocation()));
 		}
@@ -67,10 +67,10 @@ public class WorkEffortQueryService {
 			search.add(Restrictions.eq("verifcationType", fweq.getVerificationType()));
 		}
 		
-		if (fweq.getStartDate() != null) {
+		if (fweq.getStartDate() != (null)) {
 			search.add(Restrictions.ge("duration.endDate", fweq.getStartDate()));
 		}
-		if (fweq.getEndDate() != null) {
+		if (fweq.getEndDate() != (null)) {
 			search.add(Restrictions.le("duration.startDate", fweq.getEndDate()));
 		}
 	
@@ -83,20 +83,39 @@ public class WorkEffortQueryService {
 		rootQuery.add(Subqueries.propertyIn("id", search));
 		rootQuery.createAlias("student", "student");
 		
-		if(fweq.getSortOptions().compareTo(QuerySortOptions.Student) == 0){
-			rootQuery.addOrder(Order.asc("student.firstName"));
+		switch(fweq.getSortOptions()){
+			
+		case Student:
+			rootQuery.addOrder(Order.asc("student.lastName"));
 			rootQuery.addOrder(Order.asc("student.middleName"));
-			rootQuery.addOrder(Order.asc("student.lastName"));	
-		}
-		
-		else if(fweq.getSortOptions().compareTo(QuerySortOptions.Date) == 0){
-			rootQuery.addOrder(Order.asc("duration.startDate"));
-		}
-		else if(fweq.getSortOptions().compareTo(QuerySortOptions.Employer)== 0){
+			rootQuery.addOrder(Order.asc("student.firstName"));	
 			rootQuery.addOrder(Order.asc("employer.name"));
+			rootQuery.addOrder(Order.asc("employer.location"));
+			rootQuery.addOrder(Order.desc("duration.startDate"));
+			rootQuery.addOrder(Order.desc("duration.endDate"));
+			break;
+			
+		case Employer:
+			rootQuery.addOrder(Order.desc("duration.startDate"));
+			rootQuery.addOrder(Order.desc("duration.endDate"));
+			rootQuery.addOrder(Order.asc("student.lastName"));
+			rootQuery.addOrder(Order.asc("student.middleName"));
+			rootQuery.addOrder(Order.asc("student.firstName"));	
+			rootQuery.addOrder(Order.asc("employer.name"));
+			rootQuery.addOrder(Order.asc("employer.location"));
+			break;
+			
+		case Date:
+			rootQuery.addOrder(Order.asc("employer.name"));
+			rootQuery.addOrder(Order.asc("employer.location"));
+			rootQuery.addOrder(Order.asc("student.lastName"));
+			rootQuery.addOrder(Order.asc("student.middleName"));
+			rootQuery.addOrder(Order.asc("student.firstName"));	
+			rootQuery.addOrder(Order.desc("duration.startDate"));
+			rootQuery.addOrder(Order.desc("duration.endDate"));
+			break;
 		}
 		
-	
 		Session session = (Session) Student.entityManager().unwrap(Session.class);
 		session.beginTransaction();
 		

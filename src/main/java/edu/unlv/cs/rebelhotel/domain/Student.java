@@ -38,6 +38,7 @@ public class Student {
     @Column(unique = true)
     private String userId;
 
+    
     @NotNull
     @Size(min = 2)
     private String firstName;

@@ -18,6 +18,7 @@ privileged aspect StudentDataOnDemand_Roo_DataOnDemand {
     
     public Student StudentDataOnDemand.getNewTransientStudent(int index) {
         edu.unlv.cs.rebelhotel.domain.Student obj = new edu.unlv.cs.rebelhotel.domain.Student();
+        obj.setEmail("email_" + index);
         obj.setUserId("userId_" + index);
         obj.setFirstName("firstName_" + index);
         obj.setMiddleName("middleName_" + index);

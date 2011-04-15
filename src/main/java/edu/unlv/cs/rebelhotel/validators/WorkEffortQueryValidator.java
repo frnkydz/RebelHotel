@@ -27,10 +27,11 @@ public class WorkEffortQueryValidator {
 			}
 		}
 
-		if (fweq.getUserId().length() < 10) {
-
+		if (fweq.getUserId().length() > 10) {
+				errors.rejectValue("userId", "date.invalid_userid","The userId is invalid");
+						
 		}
-
 	}
-
+								
+						
 }

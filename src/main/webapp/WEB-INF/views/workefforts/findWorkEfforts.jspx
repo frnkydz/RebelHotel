@@ -6,7 +6,7 @@
 	<jsp:directive.page contentType="text/html;charset=UTF-8" /> <jsp:output omit-xml-declaration="yes" />
 	
 	
-	 <form:create id="fc_edu_unlv_cs_rebelhotel_form_FormWorkEffort" modelAttribute="formworkeffortquery" path="/workefforts?query" render="${empty dependencies}" z="Uf7OgrlFmtWkcuJmcJOSqG30iWM=">
+	 <form:weform id="fc_edu_unlv_cs_rebelhotel_form_FormWorkEffort" modelAttribute="formworkeffortquery" path="/workefforts?query" render="${empty dependencies}" submitMessage="submit_query">
 
 	<table>
 		<th><spring:message code="label_edu_unlv_cs_rebelhotel_form_formworkeffortforstudent_tableheader" htmlEscape="false" /></th>
@@ -70,7 +70,7 @@
 		<td></td>
 		</tr>
 		</table>
-</form:create>  
+</form:weform>  
 
 </div>
 

@@ -28,7 +28,7 @@ public class Line {
 	private Set<Major> majors = new HashSet<Major>();
 	private Term admitTerm;
 	private Term gradTerm;
-/*
+
 	public Line(List<String> tokens){
 		if (tokens.size() != EXPECTED_SIZE){
 			throw new InvalidLineException("Invalid number of elements.");
@@ -125,5 +125,5 @@ public class Line {
 		Term term = createOrFindTerm(aterm);
 		Major major = new Major(amajor,term);
 		return major;
-	}*/
+	}
 }

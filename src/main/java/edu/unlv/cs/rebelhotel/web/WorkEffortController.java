@@ -23,6 +23,7 @@ import edu.unlv.cs.rebelhotel.validators.WorkEffortForStudentValidator;
 import edu.unlv.cs.rebelhotel.validators.WorkEffortQueryValidator;
 import edu.unlv.cs.rebelhotel.validators.WorkEffortValidator;
 
+import org.hibernate.classic.Session;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;

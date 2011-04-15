@@ -2,6 +2,9 @@ package edu.unlv.cs.rebelhotel.domain;
 
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.tostring.RooToString;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -25,10 +28,13 @@ public class WorkEffortDuration {
     private Integer hours;
     
     public String toString() {
+        DateFormat formatter ; 
+        formatter = new SimpleDateFormat("dd/m/yyyy");
+ 
         StringBuilder sb = new StringBuilder();
-        sb.append((getStartDate() != null ? getStartDate().toString() : "null"));
+        sb.append((getStartDate() != null ? formatter.format(getStartDate()) : "null"));
         sb.append(" to ");
-        sb.append((getEndDate() != null ? getEndDate().toString() : "null"));
+        sb.append((getEndDate() != null ? formatter.format(getEndDate()): "null"));
         if (getHours() != null) {
         	sb.append("("+getHours().toString()+" hours)");
         }

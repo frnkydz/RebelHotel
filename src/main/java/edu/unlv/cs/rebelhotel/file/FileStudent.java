@@ -22,7 +22,7 @@ public class FileStudent {
 	private Set<Major> majors = new HashSet<Major>();
 	private Term admitTerm;
 	private Term gradTerm;
-/*
+
 	public Set<FileStudent> convert(Collection<List<Line>> student) {
 		Set<FileStudent> fileStudents = new HashSet<FileStudent>();
 		for (List<Line> lines : student) {
@@ -41,5 +41,5 @@ public class FileStudent {
 		}
 		return fileStudents;
 	}
-	*/
+	
 }
