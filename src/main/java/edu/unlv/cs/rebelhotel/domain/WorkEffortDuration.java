@@ -27,16 +27,19 @@ public class WorkEffortDuration {
     
     private Integer hours;
     
+    /* modified the toString() so that the print to the view
+     * is nicer.  Think
+     */
     public String toString() {
         DateFormat formatter ; 
-        formatter = new SimpleDateFormat("dd/m/yyyy");
+        formatter = new SimpleDateFormat("MMM. dd, yyyy");
  
         StringBuilder sb = new StringBuilder();
         sb.append((getStartDate() != null ? formatter.format(getStartDate()) : "null"));
-        sb.append(" to ");
+        sb.append("-");
         sb.append((getEndDate() != null ? formatter.format(getEndDate()): "null"));
         if (getHours() != null) {
-        	sb.append("("+getHours().toString()+" hours)");
+        	sb.append("\n("+getHours().toString()+" hours)");
         }
         return sb.toString();
     }

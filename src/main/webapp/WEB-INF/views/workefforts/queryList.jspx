@@ -10,8 +10,7 @@
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_student" property="student" maxLength="35" />
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_workPosition" property="workPosition" maxLength="25" />
             <table:column id="c_edu_unlv_cs_rebelhotel_domain_workeffort_employer" property="employer" maxLength="25" />
-            <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration" property="duration" maxLength="30"/>
-            <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_verificationType" property="verificationType" />
+            <table:column id="c_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration" property="duration" maxLength="40"/>
         </table:workEffortsTable>
     </page:list>
 </div>
