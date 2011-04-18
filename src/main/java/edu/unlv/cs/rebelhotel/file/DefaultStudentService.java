@@ -16,6 +16,7 @@ import edu.unlv.cs.rebelhotel.file.StudentMapper;
 import edu.unlv.cs.rebelhotel.domain.Student;
 
 
+
 // As with this class...
 // anything that is a singleton must be thread safe, because there will be
 // multiple threads accessing it simultaneously

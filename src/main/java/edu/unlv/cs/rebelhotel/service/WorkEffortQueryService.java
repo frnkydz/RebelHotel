@@ -20,6 +20,7 @@ import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
 import edu.unlv.cs.rebelhotel.form.QuerySortOptions;
 
+
 @Service
 public class WorkEffortQueryService {
 
@@ -54,20 +55,8 @@ public class WorkEffortQueryService {
 		if (!fweq.getEmployerLocation().isEmpty()) {
 			search.add(Restrictions.like("employer.location",
 					"%"+fweq.getEmployerLocation()+"%"));
-		}
-
-		if (fweq.isValidationSelected()) {
-			search.add(Restrictions.eq("validation", fweq.getValidation()));
-		}
-
-		if (fweq.isVerificationSelected()) {
-			search.add(Restrictions.eq("verification", fweq.getVerification()));
-		}
-		if (fweq.isVerificationTypeSelected()) {
-			search.add(Restrictions.eq("verifcationType",
-					fweq.getVerificationType()));
-		}
-
+					
+		
 		if (fweq.getStartDate() != (null) && fweq.getEndDate() == null) {
 			search.add(Restrictions.ge("duration.startDate", fweq.getStartDate()));
 		}
@@ -130,6 +119,21 @@ public class WorkEffortQueryService {
 
 		List workefforts = rootQuery.getExecutableCriteria(session).list();
 		session.close();
+
+		
+		List workefforts;
+
+		DetachedCriteria rootQuery = DetachedCriteria
+				.forClass(WorkEffort.class);
+		search.setProjection(Projections.distinct(Projections.projectionList()
+				.add(Projections.alias(Projections.property("id"), "id"))));
+		rootQuery.add(Subqueries.propertyIn("id", search));
+		Session session = (Session) Student.entityManager().unwrap(
+				Session.class);
+		session.beginTransaction();
+		workefforts = rootQuery.getExecutableCriteria(session).list();
+		session.close();
+
 		return workefforts;
 
 	}
