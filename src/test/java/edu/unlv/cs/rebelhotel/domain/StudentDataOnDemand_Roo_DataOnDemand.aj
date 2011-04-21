@@ -27,7 +27,6 @@ privileged aspect StudentDataOnDemand_Roo_DataOnDemand {
         obj.setCodeOfConductSigned(Boolean.TRUE);
         obj.setLastModified(new java.util.GregorianCalendar(java.util.Calendar.getInstance().get(java.util.Calendar.YEAR), java.util.Calendar.getInstance().get(java.util.Calendar.MONTH), java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH), java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY), java.util.Calendar.getInstance().get(java.util.Calendar.MINUTE), java.util.Calendar.getInstance().get(java.util.Calendar.SECOND) + new Double(Math.random() * 1000).intValue()).getTime());
         obj.setUserAccount(null);
-        obj.setTotalHours(new Integer(index).longValue());
         return obj;
     }
     

@@ -15,7 +15,8 @@
         <field:display field="payStatus" id="s_edu_unlv_cs_rebelhotel_domain_WorkEffort_payStatus" object="${workeffort}" z="PEvP35W4vVr3eHXCRweDMgX+Hcg="/>
         <field:display field="duration" id="s_edu_unlv_cs_rebelhotel_domain_WorkEffort_duration" object="${workeffort}" z="fXnXtTpdZD9BP/U+BjPDqCbOtbo="/>
     
-    <field:display field="catalogRequirements" id="s_edu_unlv_cs_rebelhotel_domain_WorkEffort_catalogRequirements" object="${workeffort}" z="viyMVVRoZ0bi5eb9t5SI9159Az0="/>
     
+    
+    <field:display field="workRequirements" id="s_edu_unlv_cs_rebelhotel_domain_WorkEffort_workRequirements" object="${workeffort}" z="Oy0uqbdQOrk0DmN10fWSWsKrEOg="/>
     </page:show>
 </div>

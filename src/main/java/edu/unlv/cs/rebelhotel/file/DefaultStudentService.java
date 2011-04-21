@@ -1,4 +1,4 @@
-package edu.unlv.cs.rebelhotel.file;
+ package edu.unlv.cs.rebelhotel.file;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
