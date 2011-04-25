@@ -21,10 +21,12 @@
    		<div id="wrapper">
 		    <tiles:insertAttribute name="header" ignore="true" />
 		    <tiles:insertAttribute name="menu" ignore="true" />   
+		    <tiles:insertAttribute name="defaultStudentSearch" />
+		    
+		    
 		    <div id="main">
-		    	<tiles:insertAttribute name="defaultStudentSearch" />
 	    		<tiles:insertAttribute name="body"/> 
-		    	<tiles:insertAttribute name="footer" ignore="true"/>
+	    		<tiles:insertAttribute name="footer" ignore="true"/>
 		    </div>
 		</div>
 	</body>

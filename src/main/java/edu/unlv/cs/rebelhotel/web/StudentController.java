@@ -617,9 +617,11 @@ public class StudentController {
 		model.addAttribute("student", student);
         model.addAttribute("itemId", student.getId());
     	}
-    catch( org.springframework.dao.EmptyResultDataAccessException exception){
-    
-    }
+ 
+   catch(NoResultException exception ){
+	   //do nothing ...view will show appropriate message if object student is empty
+   }
+   
    
         return "students/show";
     }

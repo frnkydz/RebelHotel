@@ -6,14 +6,10 @@
 		<security:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')">
 	
 		
-	<div style="width:250px">
+	<div style="background: #eee; position:relative; clear:left; float:left;left:0px; width:220px; margin-right:10px; margin-top:15px; margin-botton:0px" >
 	<form:find id="ff_edu_unlv_cs_rebelhotel_defaultstudentsearch" finderName="ByUserIdEquals" path="/students">
 	 <field:input field="userId" id="c_edu_unlv_cs_rebelhotel_SearchForStudent" disableFormBinding="true" />
 	</form:find>
 	</div>
-
-   
-	<br />
-	<br />
 	</security:authorize >
 </div>
