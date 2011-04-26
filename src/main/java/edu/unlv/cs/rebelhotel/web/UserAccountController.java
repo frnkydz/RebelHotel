@@ -1,9 +1,12 @@
 package edu.unlv.cs.rebelhotel.web;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
+import edu.unlv.cs.rebelhotel.service.RebelUserDetails;
+
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -62,4 +65,29 @@ public class UserAccountController {
         model.addAttribute("size", (size == null) ? "10" : size.toString());
         return "redirect:/useraccounts?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
     }
+	
+
+	@RequestMapping( "/forgotPassword")
+	public String createforgotPasswordForm(Model model){
+		
+		return "useraccounts/forgotPassword";
+	}
+	
+	
+	
+	@RequestMapping( "/createNewPassword")
+	public String createNewPassword(@RequestParam("userId") String userId, Model model){
+		
+		try{
+		
+		
+		}
+		catch(NoResultException exception){
+			
+		}
+		return "useraccounts/confirmPasswordSent";
+	}
+	
+	
+	
 }

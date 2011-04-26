@@ -25,4 +25,7 @@
 <definition extends="useraccounts.default" name="useraccounts/findUserAccountsByUserId">
         <put-attribute name="body" value="/WEB-INF/views/useraccounts/findUserAccountsByUserId.jspx"/>
     </definition>
+<definition extends="useraccounts.default" name="useraccounts/forgotPassword">
+        <put-attribute name="body" value="/WEB-INF/views/useraccounts/forgotPassword.jspx"/>
+</definition>
 </tiles-definitions>

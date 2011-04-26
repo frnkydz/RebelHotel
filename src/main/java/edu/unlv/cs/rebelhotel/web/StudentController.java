@@ -619,7 +619,7 @@ public class StudentController {
     	}
  
    catch(NoResultException exception ){
-	   //do nothing ...view will show appropriate message if object student is empty
+	   //do nothing ...view will show appropriate message if student object  is empty
    }
    
    
