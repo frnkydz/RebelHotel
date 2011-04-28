@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
-	<definition extends = "default" name = "useraccounts.default">
-		<put-attribute name="menu" value="/WEB-INF/views/useraccounts/user_accounts_menu.jspx" />
+	<definition extends="default" name="useraccounts.default">
+		<put-attribute name="menu" value="/WEB-INF/views/useraccounts/user_accounts_menu.jspx"/>
 	</definition>
     <definition extends="useraccounts.default" name="useraccounts/list">
         <put-attribute name="body" value="/WEB-INF/views/useraccounts/list.jspx"/>
@@ -24,5 +24,17 @@
     </definition>
 <definition extends="useraccounts.default" name="useraccounts/findUserAccountsByUserId">
         <put-attribute name="body" value="/WEB-INF/views/useraccounts/findUserAccountsByUserId.jspx"/>
+    </definition>
+<definition extends="useraccounts.default" name="useraccounts/forgotPassword">
+        <put-attribute name="body" value="/WEB-INF/views/useraccounts/forgotPassword.jspx"/>
+</definition>
+<definition extends="useraccounts.default" name="useraccounts/confirmPasswordSent">
+        <put-attribute name="body" value="/WEB-INF/views/useraccounts/confirmPasswordSent.jspx"/>
+</definition>
+<definition extends="default" name="useraccounts/findUserAccountsByEmailLike">
+        <put-attribute name="body" value="/WEB-INF/views/useraccounts/findUserAccountsByEmailLike.jspx"/>
+    </definition>
+<definition extends="default" name="useraccounts/findUserAccountsByUserIdEquals">
+        <put-attribute name="body" value="/WEB-INF/views/useraccounts/findUserAccountsByUserIdEquals.jspx"/>
     </definition>
 </tiles-definitions>

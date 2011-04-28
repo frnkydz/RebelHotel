@@ -3,14 +3,11 @@ package edu.unlv.cs.rebelhotel.web;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import edu.unlv.cs.rebelhotel.domain.Major;
 import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
@@ -67,11 +64,8 @@ public class WorkEffortController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_SUPERUSER')")
 	@RequestMapping(params = "query", method = RequestMethod.POST)
-	public String queryList(
-			@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "size", required = false) Integer size,
-			@Valid FormWorkEffortQuery form, BindingResult result, Model model,
-			HttpServletRequest request) {
+	public String queryList(@RequestParam(value = "page", required = false) Integer page,@RequestParam(value = "size", required = false) Integer size,@Valid FormWorkEffortQuery form, BindingResult result, Model model,
+			HttpServletRequest request) throws Exception {
 		workEffortQueryValidator.validate(form, result);
 		if (result.hasErrors()) {
 			model.addAttribute("formworkeffortquery", form);
@@ -79,8 +73,7 @@ public class WorkEffortController {
 			return "workefforts/findWorkEfforts";
 		}
 
-		List<WorkEffort> workEffortsList = workeffortqueryservice
-				.queryWorkEfforts(form);
+		List<WorkEffort> workEffortsList = workeffortqueryservice.queryWorkEfforts(form);
 
 		model.addAttribute("workEffortsList", workEffortsList);
 		model.addAttribute("page", (page == null) ? "1" : page.toString());

@@ -54,11 +54,9 @@
   <spring:url value="/useraccounts/forgotPassword" var="userAccounts" />
   
   <span>
-          <security:authorize access="hasRole('ROLE_ANONYMOUS')">
     <a href="${userAccounts}">
       <spring:message code="button_forgot_password"/>
     </a>
-    </security:authorize>
   </span>
     </form></td>
     <td>

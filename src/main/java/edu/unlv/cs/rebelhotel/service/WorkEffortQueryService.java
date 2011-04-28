@@ -3,28 +3,24 @@ package edu.unlv.cs.rebelhotel.service;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import edu.unlv.cs.rebelhotel.domain.Student;
-import edu.unlv.cs.rebelhotel.domain.Employer;
 import edu.unlv.cs.rebelhotel.domain.WorkEffort;
-import edu.unlv.cs.rebelhotel.form.FormStudentQuery;
 import edu.unlv.cs.rebelhotel.form.FormWorkEffortQuery;
 import edu.unlv.cs.rebelhotel.form.QuerySortOptions;
-
 
 @Service
 public class WorkEffortQueryService {
 
-	public List<WorkEffort> queryWorkEfforts(FormWorkEffortQuery fweq) {
+	public List<WorkEffort> queryWorkEfforts(FormWorkEffortQuery fweq)
+			throws Exception {
 
 		DetachedCriteria search = DetachedCriteria.forClass(WorkEffort.class);
 		search.createAlias("student", "student");
@@ -37,38 +33,42 @@ public class WorkEffortQueryService {
 		if (!fweq.getStudentFirstName().isEmpty()) {
 
 			search.add(Restrictions.like("student.firstName",
-					"%" + fweq.getStudentFirstName()+"%"));
+					"%" + fweq.getStudentFirstName() + "%"));
 		}
 		if (!fweq.getStudentMiddleName().isEmpty()) {
 			search.add(Restrictions.like("student.middleName",
-					"%"+fweq.getStudentMiddleName()+"%"));
+					"%" + fweq.getStudentMiddleName() + "%"));
 
 		}
 		if (!fweq.getStudentLastName().isEmpty()) {
 			search.add(Restrictions.like("student.lastName",
-					"%"+fweq.getStudentLastName()+"%"));
+					"%" + fweq.getStudentLastName() + "%"));
 
 		}
 		if (!fweq.getEmployerName().isEmpty()) {
-			search.add(Restrictions.like("employer.name", "%"+fweq.getEmployerName()+"%"));
+			search.add(Restrictions.like("employer.name",
+					"%" + fweq.getEmployerName() + "%"));
 		}
 		if (!fweq.getEmployerLocation().isEmpty()) {
 			search.add(Restrictions.like("employer.location",
-					"%"+fweq.getEmployerLocation()+"%"));
+					"%" + fweq.getEmployerLocation() + "%"));
 		}
-		
+
 		if (fweq.getStartDate() != (null) && fweq.getEndDate() == null) {
-			search.add(Restrictions.ge("duration.startDate", fweq.getStartDate()));
+			search.add(Restrictions.ge("duration.startDate",
+					fweq.getStartDate()));
 		}
 		if (fweq.getEndDate() != (null) && fweq.getEndDate() == null) {
 			search.add(Restrictions.le("duration.endDate", fweq.getEndDate()));
 		}
 
-		if(fweq.getEndDate() != (null) && fweq.getEndDate() != null ){
-			
-			search.add(Restrictions.between("duration.startDate",fweq.getStartDate(), fweq.getEndDate()));
-			search.add(Restrictions.between("duration.endDate",fweq.getStartDate(), fweq.getEndDate()));
-			
+		if (fweq.getEndDate() != (null) && fweq.getEndDate() != null) {
+
+			search.add(Restrictions.between("duration.startDate",
+					fweq.getStartDate(), fweq.getEndDate()));
+			search.add(Restrictions.between("duration.endDate",
+					fweq.getStartDate(), fweq.getEndDate()));
+
 		}
 		search.setProjection(Projections.distinct(Projections.projectionList()
 				.add(Projections.alias(Projections.property("id"), "id"))));
@@ -113,17 +113,25 @@ public class WorkEffortQueryService {
 			break;
 		}
 
-		Session session = (Session) Student.entityManager().unwrap(
-				Session.class);
-		session.beginTransaction();
+		Session session = (Session) Student.entityManager().unwrap(Session.class);
+		Transaction transaction = null;
+		List workefforts;
+		try {
+			transaction = session.beginTransaction();
+			workefforts = rootQuery.getExecutableCriteria(session).list();
+			transaction.commit();
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			throw e;
 
-		List workefforts = rootQuery.getExecutableCriteria(session).list();
-		session.close();
-
-	
+		} finally {
+			session.close();
+		}
 
 		return workefforts;
 
 	}
 
-	}
+}

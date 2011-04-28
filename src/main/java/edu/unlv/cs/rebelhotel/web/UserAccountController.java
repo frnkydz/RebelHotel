@@ -1,12 +1,14 @@
 package edu.unlv.cs.rebelhotel.web;
 
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import edu.unlv.cs.rebelhotel.domain.Student;
 import edu.unlv.cs.rebelhotel.domain.UserAccount;
+import edu.unlv.cs.rebelhotel.email.UserEmailService;
 import edu.unlv.cs.rebelhotel.service.RebelUserDetails;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.web.mvc.controller.RooWebScaffold;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/useraccounts")
 @Controller
 public class UserAccountController {
+	
+	@Autowired
+	UserEmailService userEmailService;
+	
 	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@RequestMapping(method = RequestMethod.POST)
     public String create(@Valid UserAccount userAccount, BindingResult result, Model model, HttpServletRequest request) {
@@ -66,7 +72,7 @@ public class UserAccountController {
         return "redirect:/useraccounts?page=" + ((page == null) ? "1" : page.toString()) + "&size=" + ((size == null) ? "10" : size.toString());
     }
 	
-
+	
 	@RequestMapping( "/forgotPassword")
 	public String createforgotPasswordForm(Model model){
 		
@@ -74,17 +80,21 @@ public class UserAccountController {
 	}
 	
 	
-	
-	@RequestMapping( "/createNewPassword")
+	@RequestMapping( value="/createNewPassword", method = RequestMethod.GET )
 	public String createNewPassword(@RequestParam("userId") String userId, Model model){
 		
 		try{
-		
-		
+		UserAccount userAccount = UserAccount.findUserAccountsByUserId(userId).getSingleResult();
+		String password = userAccount.generatePassword();
+	    userEmailService.sendNewPassword(userAccount, password);
+	    Student student = Student.findStudentsByUserAccount(userAccount).getSingleResult();
+		model.addAttribute("student",student);
 		}
-		catch(NoResultException exception){
-			
+		catch(org.springframework.dao.EmptyResultDataAccessException exception){
+			model.addAttribute("userId",userId);
+			return "useraccounts/forgotPassword";
 		}
+		
 		return "useraccounts/confirmPasswordSent";
 	}
 	
